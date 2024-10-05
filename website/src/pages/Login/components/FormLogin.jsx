@@ -2,8 +2,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import Logo from "../../../assets/img/logo/HiBakery.png"; 
-import Cake from "../../../assets/img/Cake.png"; 
+
 export const SignIn = () => {
   
   const [visible, setVisible] = useState(false);
@@ -15,7 +14,7 @@ export const SignIn = () => {
     <div className="w-full flex flex-col md:flex-row">
       <div className="w-full md:w-1/2 p-8">
         <div className="mb-6 w-24 h-24 mx-auto md:mx-0">
-          <img src={Logo} className="w-full h-full object-contain" alt="Logo" />
+          <img src="" className="w-full h-full object-contain" alt="Logo" />
         </div>
         <div className="header-text mb-6 text-center md:text-left">
           <h5 className="text-2xl font-semibold">Hello, Again</h5>
@@ -71,7 +70,7 @@ export const SignIn = () => {
         </div>
       </div>
       <div className="w-full md:w-1/2  flex items-center justify-center p-8">
-        <img src={Cake} className="w-full max-w-md object-cover" alt="Decorative cake" />
+        <img src="" className="w-full max-w-md object-cover" alt="Decorative cake" />
       </div>
     </div>
   </div>
