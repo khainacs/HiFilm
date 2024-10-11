@@ -7,12 +7,19 @@ import BasicLayout from "./layouts/BasicLayout";
 import BlankLayout from "./layouts/BlankLayout";
 
 const Login = loadable(() => import("./pages/Login"));
-
+const Home = loadable(() => import("./pages/Home"));
 export default function App() {
     return (
         <BrowserRouter>
             <Routes>
                 <Route element={<AuthLayout />}>{/* <Route path="/logout" element={<Logout />} /> */}</Route>
+                <Route element = {<BasicLayout/>}>
+                    <Route index element={
+                        <Suspense fallback={<CircularProgress/>}>
+                            <Home title="Trang Chủ"/>     
+                        </Suspense>
+                    }/>
+                </Route>
                 <Route element={<BlankLayout />}>
                     <Route
                         path="/dang-nhap"

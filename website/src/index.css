@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --background-navabar: url('./assets/img/HarryPotter.png');
+}
 body::-webkit-scrollbar {
     width: 12px;
 }
