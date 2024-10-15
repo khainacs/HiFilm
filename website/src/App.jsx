@@ -8,6 +8,9 @@ import BlankLayout from "./layouts/BlankLayout";
 
 const Login = loadable(() => import("./pages/Login"));
 const Home = loadable(() => import("./pages/Home"));
+const ForgotPassword = loadable(() => import("./pages/Forgotpassword/index"));
+const EditInformation = loadable(() => import("./pages/EditInformation/index"));
+const MailForm = loadable(() => import("./pages/MailForm/index"));
 export default function App() {
     return (
         <BrowserRouter>
@@ -30,7 +33,36 @@ export default function App() {
                         }
                     />
                 </Route>
-              
+                <Route element={<BlankLayout />}>
+                    <Route
+                        path="/quen-mat-khau"
+                        element={
+                            <Suspense fallback={<CircularProgress />}>
+                                <ForgotPassword title="Quên mật khẩu" />
+                            </Suspense>
+                        }
+                    />
+                </Route>
+                <Route element={<BlankLayout />}>
+                    <Route
+                        path="/mail-form"
+                        element={
+                            <Suspense fallback={<CircularProgress />}>
+                                <MailForm title="Biểu mẫu mail" />
+                            </Suspense>
+                        }
+                    />
+                </Route>
+                <Route element={<BasicLayout />}>
+                    <Route
+                        path="/chinh-sua-thong-tin"
+                        element={
+                            <Suspense fallback={<CircularProgress />}>
+                                <EditInformation title="Chỉnh sửa thông tin" />
+                            </Suspense>
+                        }
+                    />
+                </Route>
             </Routes>
         </BrowserRouter>
     );
