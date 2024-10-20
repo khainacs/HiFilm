@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import { useEffect } from "react";
-import FormLogin from "./components/FormLogin";
+import MovieDetail from "./components/MovieDetail";
 
-Login.propTypes = {
+Movie_Detail.propTypes = {
     title: PropTypes.string,
 };
-export default function Login(props) {
+export default function Movie_Detail(props) {
     const { title } = props;
 
     useEffect(() => {
@@ -13,8 +13,8 @@ export default function Login(props) {
     }, [title]);
 
     return (
-        <main className="min-h-screen flex items-center justify-center bg-gray-100">
-            <FormLogin />
+        <main className="min-h-screen flex items-center justify-center bg-gray-100 mt-[60px] ">
+            <MovieDetail />
         </main>
     );
 }
