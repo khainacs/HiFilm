@@ -8,7 +8,7 @@ import ZaloPay from "../../assets/img/zaloPay.png"
 export default function Footer() {
     const [isFocused, setIsFocused] = useState(false);
     return (
- <footer className="w-full px-4 mx-auto mt-3 max-w-container sm:px-6 lg:px-20 bg-[#252631]">
+ <footer className="w-full px-4 mx-auto  max-w-container sm:px-6 lg:px-20 bg-[#252631]">
         <div className="grid grid-rows-3 gap-2 mx-10">
 
             {/* Top Row (Logo, Nav Links and Search) */}
