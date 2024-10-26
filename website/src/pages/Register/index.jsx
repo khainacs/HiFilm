@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import { useEffect } from "react";
-import FormLogin from "./components/FormLogin";
+import FormRegister from "./components/FormRegister";
 
-Login.propTypes = {
+Register.propTypes = {
     title: PropTypes.string,
 };
-export default function Login(props) {
+export default function Register(props) {
     const { title } = props;
 
     useEffect(() => {
@@ -14,7 +14,7 @@ export default function Login(props) {
 
     return (
         <main className="min-h-screen flex items-center justify-center bg-gray-100">
-            <FormLogin />
+            <FormRegister />
         </main>
     );
 }

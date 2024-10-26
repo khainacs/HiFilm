@@ -11,17 +11,24 @@ const Home = loadable(() => import("./pages/Home"));
 const ForgotPassword = loadable(() => import("./pages/Forgotpassword/index"));
 const EditInformation = loadable(() => import("./pages/EditInformation/index"));
 const MailForm = loadable(() => import("./pages/MailForm/index"));
+const Regiter = loadable(() => import("./pages/Register/index"));
+const MovieDetail = loadable(() => import("./pages/MovieDetail/index"));
 export default function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route element={<AuthLayout />}>{/* <Route path="/logout" element={<Logout />} /> */}</Route>
-                <Route element = {<BasicLayout/>}>
-                    <Route index element={
-                        <Suspense fallback={<CircularProgress/>}>
-                            <Home title="Trang Chủ"/>     
-                        </Suspense>
-                    }/>
+                <Route element={<AuthLayout />}>
+                    {/* <Route path="/logout" element={<Logout />} /> */}
+                </Route>
+                <Route element={<BasicLayout />}>
+                    <Route
+                        index
+                        element={
+                            <Suspense fallback={<CircularProgress />}>
+                                <Home title="Trang Chủ" />
+                            </Suspense>
+                        }
+                    />
                 </Route>
                 <Route element={<BlankLayout />}>
                     <Route
@@ -29,6 +36,16 @@ export default function App() {
                         element={
                             <Suspense fallback={<CircularProgress />}>
                                 <Login title="Đăng nhập" />
+                            </Suspense>
+                        }
+                    />
+                </Route>
+                <Route element={<BlankLayout />}>
+                    <Route
+                        path="/dang-ky"
+                        element={
+                            <Suspense fallback={<CircularProgress />}>
+                                <Regiter title="Đăng ký" />
                             </Suspense>
                         }
                     />
@@ -59,6 +76,16 @@ export default function App() {
                         element={
                             <Suspense fallback={<CircularProgress />}>
                                 <EditInformation title="Chỉnh sửa thông tin" />
+                            </Suspense>
+                        }
+                    />
+                </Route>
+                <Route element={<BasicLayout />}>
+                    <Route
+                        path="/movie-detail"
+                        element={
+                            <Suspense fallback={<CircularProgress />}>
+                                <MovieDetail title="Movie Detail" />
                             </Suspense>
                         }
                     />
