@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-    --background-navabar: url('./assets/img/HarryPotter.png');
+    --background-navabar: url('./assets/img/Banner/HarryPotter.png');
 }
 body::-webkit-scrollbar {
     width: 12px;

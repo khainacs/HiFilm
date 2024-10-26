@@ -1,4 +1,4 @@
-package org.example.entities;
+package com.avg.security.entities;
 
 import lombok.Getter;
 import lombok.Setter;

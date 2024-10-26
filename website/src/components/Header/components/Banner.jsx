@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
-import HoangTuLai from "../../../assets/img/HoangTuLai.png";
+import HoangTuLai from "../../../assets/img/Banner/HoangTuLai.png";
 export default function Banner() {
     return (
-        <div className="relative bg-[image:var(--background-navabar)] bg-contain bg-center">
+        <div className="relative bg-[image:var(--background-navabar)] bg-contain bg-center mt-10">
           {/* Lớp overlay */}
           <div className="absolute inset-0 bg-black opacity-60 backdrop-blur-sm"></div>
           
