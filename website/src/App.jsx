@@ -13,6 +13,7 @@ const EditInformation = loadable(() => import("./pages/EditInformation/index"));
 const MailForm = loadable(() => import("./pages/MailForm/index"));
 const Regiter = loadable(() => import("./pages/Register/index"));
 const MovieDetail = loadable(() => import("./pages/MovieDetail/index"));
+const Movie = loadable(()=> import("./pages/Movies"));
 export default function App() {
     return (
         <BrowserRouter>
@@ -76,6 +77,16 @@ export default function App() {
                         element={
                             <Suspense fallback={<CircularProgress />}>
                                 <EditInformation title="Chỉnh sửa thông tin" />
+                            </Suspense>
+                        }
+                    />
+                </Route>
+                <Route element={<BasicLayout />}>
+                    <Route
+                        path="/movie"
+                        element={
+                            <Suspense fallback={<CircularProgress />}>
+                                <Movie title="Movie" />
                             </Suspense>
                         }
                     />
