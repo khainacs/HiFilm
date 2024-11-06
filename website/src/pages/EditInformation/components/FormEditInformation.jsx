@@ -7,7 +7,6 @@ const FormEditInformation = () => {
     const [username, setUsername] = useState('current_username');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [birthday, setBirthday] = useState('');
-    const [emailVerified, setEmailVerified] = useState(false);
     const [profileImage, setProfileImage] = useState('./src/assets/img/Forgotpassword/Figure → signin-image.jpg.png');
 
     const handleFileChange = (event) => {
@@ -105,19 +104,6 @@ const FormEditInformation = () => {
                         className="block w-full px-4 py-2 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 bg-gray-700 text-white"
                     />
                 </div>
-
-                <div className="mb-4 flex items-center">
-                    <input
-                        type="checkbox"
-                        id="emailVerified"
-                        name="emailVerified"
-                        checked={emailVerified}
-                        onChange={() => setEmailVerified(!emailVerified)}
-                        className="mr-2 text-indigo-600 focus:ring-indigo-500 rounded"
-                    />
-                    <label htmlFor="emailVerified" className="text-sm font-medium text-gray-300">Email đã xác thực</label>
-                </div>
-
                 <div className="flex justify-end">
                     <button
                         type="submit"
@@ -131,8 +117,7 @@ const FormEditInformation = () => {
                     <button
                         type="button"
                         className="bg-red-600 text-white py-2 px-6 rounded-lg shadow-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-300"
-                        onClick={() => alert('Đổi mật khẩu')}
-                    >
+                        onClick={() => alert('Đổi mật khẩu')}>
                         Đổi mật khẩu
                     </button>
                 </div>

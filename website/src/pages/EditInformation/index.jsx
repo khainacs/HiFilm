@@ -12,7 +12,7 @@ export default function EditInformation(props) {
         document.title = title ? `${title}` : "Không tìm thấy trang";
     }, [title]);
     return (
-        <main className="flex items-center justify-center">
+        <main className="flex items-center justify-center bg-Dark-Blue-900">
             <div className="flex flex-col items-center w-full max-w-4xl p-6">
                 <h1 className="text-2xl font-semibold text-center">Chỉnh sửa thông tin cá nhân</h1>
                 <FormEditInformation />

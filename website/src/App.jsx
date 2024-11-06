@@ -14,6 +14,7 @@ const MailForm = loadable(() => import("./pages/MailForm/index"));
 const Regiter = loadable(() => import("./pages/Register/index"));
 const MovieDetail = loadable(() => import("./pages/MovieDetail/index"));
 const Movie = loadable(()=> import("./pages/Movies"));
+const About = loadable(()=> import("./pages/About/index"))
 export default function App() {
     return (
         <BrowserRouter>
@@ -73,10 +74,20 @@ export default function App() {
                 </Route>
                 <Route element={<BasicLayout />}>
                     <Route
-                        path="/chinh-sua-thong-tin"
+                        path="/edit-info"
                         element={
                             <Suspense fallback={<CircularProgress />}>
                                 <EditInformation title="Chỉnh sửa thông tin" />
+                            </Suspense>
+                        }
+                    />
+                </Route>
+                <Route element={<BasicLayout />}>
+                    <Route
+                        path="/about"
+                        element={
+                            <Suspense fallback={<CircularProgress />}>
+                                <About title="Về chúng tôi" />
                             </Suspense>
                         }
                     />
