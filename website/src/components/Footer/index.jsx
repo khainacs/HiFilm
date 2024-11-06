@@ -1,94 +1,48 @@
 import Logo from "../../assets/img/Logo/Logo.png";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
-import { faFacebook, faTwitter, faPinterestP, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
-import Momo from "../../assets/img/momo.jpg";
-import ZaloPay from "../../assets/img/zaloPay.png"
 export default function Footer() {
-    const [isFocused, setIsFocused] = useState(false);
     return (
- <footer className="w-full px-4 mx-auto  max-w-container sm:px-6 lg:px-20 bg-[#252631]">
-        <div className="grid grid-rows-3 gap-2 mx-10">
-
-            {/* Top Row (Logo, Nav Links and Search) */}
-            <div className="flex flex-col sm:flex-row items-center justify-between space-x-0 sm:space-x-4 space-y-4 sm:space-y-0 p-4 text-white text-xs">
-    {/* Logo */}
-    <div className="flex justify-center sm:justify-start items-center">
-        <img src={Logo} alt="Logo" className="h-16 w-16 rounded-full overflow-hidden" />
-    </div>
-
-    {/* Container for Nav Links and Search */}
-    <div className="flex flex-col sm:flex-row items-center sm:justify-end space-x-0 sm:space-x-8 space-y-2 sm:space-y-0 w-full sm:w-auto">
-        {/* Nav Links */}
-        <div className="flex flex-col sm:flex-row items-center space-x-0 sm:space-x-8 space-y-2 sm:space-y-0">
-            <a href="/" className="hover:text-Bright-Pink-500">Home</a>
-            <a href="/reviews" className="hover:text-Bright-Pink-500">Movies</a>
-            <a href="/about" className="hover:text-Bright-Pink-500">About</a>
-            <a href="/show" className="hover:text-Bright-Pink-500">TV Show</a>
-            <a href="/pricing" className="hover:text-Bright-Pink-500">Pricing</a>
-        </div>
-
-        {/* Search */}
-        <div className="max-w-4xl mx-auto pb-2 pt-2 w-full sm:w-auto">
-            <div className={`relative transition-all duration-300 ${isFocused ? 'shadow-lg' : 'shadow-md'}`}>
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FontAwesomeIcon 
-                        icon={faMagnifyingGlass} 
-                        className={`w-5 h-5 transition-colors duration-300 ${isFocused ? 'text-Dark-Blue-300' : 'text-gray-400'}`}
-                    />
-                </div>
-                <input 
-                    type="search" 
-                    id="searchFooter" 
-                    className="block w-full p-2 pl-12 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white 
-                            focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 ease-in-out
-                            dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-                            dark:focus:ring-blue-500 dark:focus:border-Dark-Blue-400" 
-                    placeholder="Search..." 
-                    required 
-                    onFocus={() => setIsFocused(true)}
-                    onBlur={() => setIsFocused(false)}
-                />
+    <footer className="px-4 mx-auto max-w-container pb-4 sm:px-6 lg:px-20 bg-Gray-Black-600 flex flex-col justify-center items-center ">
+        <div className="grid grid-cols-5  mt-3 gap-6 w-11/12 border-black rounded-t-xl p-4 bg-Gray-Black-500">
+            <div className="col-span-2">
+                <img src={Logo} alt="Logo" className="w-10 rounded-full object-cover "/>
+                <div className="whitespace-pre-line text-sm  text-Light-Cream-500">
+                    <span className="text-Soft-Purple-500 font-bold">AVG Film</span> - Trang web của chúng tui có thể xem phimm trực tiếp miễn phí
+                    với giao tiếp trực quan, cùng kho phim lớn, phim hay, luôn cập nhật, 
+                    hứa hẹn sẽ đem lại phút giây thư giãn cho bạn.
                 </div>
             </div>
-        </div>
-    </div>
-
-            {/* Middle Row (Secondary Nav Links and Social Icons) */}
-            <div className="flex flex-col sm:flex-row items-center justify-between space-x-0 sm:space-x-4 space-y-4 sm:space-y-0 p-4 text-xs text-white border-t-2 border-spacing-10">
-                {/* Secondary Nav Links */}
-                <div className="flex flex-col sm:flex-row items-center space-x-0 sm:space-x-4 space-y-2 sm:space-y-0">
-                    <a href="/" className="hover:text-Bright-Pink-500">FAQ</a>
-                    <a href="/help" className="hover:text-Bright-Pink-500">Help Center</a>
-                    <a href="/terms" className="hover:text-Bright-Pink-500">Terms of Use</a>
-                    <a href="/pages" className="hover:text-Bright-Pink-500">Pages</a>
-                    <a href="/pricing" className="hover:text-Bright-Pink-500">Pricing</a>
-                </div>
-
-                {/* Social Icons */}
-                <div className="flex space-x-4">
-                    <FontAwesomeIcon icon={faFacebook} className="w-5 h-5 transition-colors duration-300 text-gray-400 hover:text-Dark-Blue-300" />
-                    <FontAwesomeIcon icon={faTwitter} className="w-5 h-5 transition-colors duration-300 text-gray-400 hover:text-Dark-Blue-300" />
-                    <FontAwesomeIcon icon={faPinterestP} className="w-5 h-5 transition-colors duration-300 text-gray-400 hover:text-Dark-Blue-300" />
-                    <FontAwesomeIcon icon={faLinkedinIn} className="w-5 h-5 transition-colors duration-300 text-gray-400 hover:text-Dark-Blue-300" />
-                </div>
+            <div className="col-span-1 ">
+                <h5 className="text-Light-Cream-600 text-sm">DANH MỤC</h5>
+                <ul className="list-none text-Light-Cream-600 font-medium text-sm ">
+                    <li><a className="hover:text-Muted-Purple-400" href="">Phim mới</a></li>
+                    <li><a className="hover:text-Muted-Purple-400" href="">Phim Bộ</a></li>
+                    <li><a className="hover:text-Muted-Purple-400" href="">Phim Lẻ</a></li>
+                    <li><a className="hover:text-Muted-Purple-400" href="">Phim Chiếu Rạp</a></li>                  
+                </ul>
             </div>
-
-            {/* Bottom Row (Copyright and Payment Logos) */}
-            <div className="flex flex-col sm:flex-row items-center justify-between space-x-0 sm:space-x-4 space-y-4 sm:space-y-0 p-2 text-xs text-white">
-                {/* Copyright */}
-                <div className="flex justify-center items-center">
-                    Copyright © 2024 All Rights Reserved By Khainacs
-                </div>
-
-                {/* Payment Logos */}
-                <div className="flex items-center space-x-4 h-6 sm:justify-end">
-                    <img src={Momo} alt="Momo" className="h-8 rounded-full overflow-hidden sm:h-6" />
-                    <img src={ZaloPay} alt="ZaloPay" className="h-8 rounded-full overflow-hidden sm:h-6" />
-                </div>
+            <div className="col-span-1">
+                <h5 className="text-Light-Cream-600 text-sm">THỂ LOẠI</h5>
+                <ul className="list-none text-Light-Cream-600 text-sm">
+                    <li><a className="hover:text-Muted-Purple-400" href="">Phim Cổ Trang</a></li>
+                    <li><a className="hover:text-Muted-Purple-400" href="">Phim Hành Động</a></li>
+                    <li><a className="hover:text-Muted-Purple-400" href="">Phim Tình Cảm</a></li>
+                    <li><a className="hover:text-Muted-Purple-400" href="">Phim Tài Liệu</a></li>
+                </ul>
             </div>
+            <div className="col-span-1">
+                <h5 className="text-Light-Cream-600 text-sm">ĐIỀU KHOẢN</h5>
+                <ul className="list-none text-Light-Cream-600 text-sm">
+                    <li><a className="hover:text-Muted-Purple-400" href="">Liên Hệ</a></li>
+                    <li><a className="hover:text-Muted-Purple-400" href="">About Us</a></li>
+                    <li><a className="hover:text-Muted-Purple-400" href="">Term of Service</a></li>
+                </ul>
+            </div>
+            
         </div>
+        <div className="w-11/12 rounded-b-xl flex justify-center border-t-2 border-t-Soft-Purple-400 border-black bg-Gray-Black-500 p-4">
+            <p className="text-sm text-Light-Cream-600 ">2024 AVG FILM, created by khaiacs</p>
+        </div>
+        
     </footer>
 
         
