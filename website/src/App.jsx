@@ -54,7 +54,7 @@ export default function App() {
                 </Route>
                 <Route element={<BlankLayout />}>
                     <Route
-                        path="/quen-mat-khau"
+                        path="/forgot-password"
                         element={
                             <Suspense fallback={<CircularProgress />}>
                                 <ForgotPassword title="Quên mật khẩu" />
