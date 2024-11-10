@@ -1,4 +1,4 @@
-package org.example.response;
+package com.avg.security.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
