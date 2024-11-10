@@ -26,9 +26,17 @@ body::-webkit-scrollbar-thumb:hover {
 html,
 body {
     height: 100%;
-    width: 100%;
     margin: 0;
     padding: 0;
+    width: 100%;
     overflow-x: hidden;
 }
 
+/* Custom CSS to hide scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}

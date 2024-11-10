@@ -1,108 +1,194 @@
+import { useState } from "react";
+import { useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
-
+import { faBookmark } from "@fortawesome/free-solid-svg-icons";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 const MovieDetail = () => {
-    return (
-        <div className="w-full p-4 sm:p-8 md:p-12 bg-slate-800 shadow-md">
-            <div className="w-full flex flex-col md:flex-row justify-center gap-4 mb-8">
-                {/* info movie */}
-                <div className="w-full md:w-2/5">
-                    <img
-                        src="./src/assets/img/HarryPotter.png"
-                        alt="Movie"
-                        className="w-full rounded-lg"
-                    />
-                </div>
-                <div className="w-full md:w-3/5 p-3">
-                    <div className="p-2 text-3xl font-bold text-blue-400 w-full">
-                        <p className="w-full">Title Film</p>
-                    </div>
+    const [isSaved, setIsSaved] = useState(false);
 
-                    <div className="p-2 text-gray-600 text-sm w-full">
-                        <a
-                            href="!#"
-                            className="p-1 m-1 rounded-md text-white inline-flex bg-slate-500"
-                        >
-                            Thể loại 1
-                        </a>
-                        <a
-                            href="!#"
-                            className="p-1 m-1 rounded-md text-white inline-flex bg-slate-500"
-                        >
-                            Thể loại 2
-                        </a>
-                        <a
-                            href="!#"
-                            className="p-1 m-1 rounded-md text-white inline-flex bg-slate-500"
-                        >
-                            Thể loại 3
-                        </a>
+    const handleSaveClick = () => {
+        setIsSaved((prevState) => !prevState); // Chuyển đổi trạng thái lưu/hủy lưu
+    };
+    const handleWatchNowClick = () => {
+        const videoElement = document.getElementById("movie-video");
+        if (videoElement) {
+            videoElement.scrollIntoView({ behavior: "smooth" });
+            videoElement.play();
+        }
+    };
+    const products = [
+        {
+            id: 1,
+            title: "Product 1",
+            rating: "4.5",
+            image: "https://i.pinimg.com/564x/01/53/e7/0153e77057ca8f0f2736c2871bc2438c.jpg",
+        },
+        {
+            id: 2,
+            title: "Product 2",
+            rating: "4.0",
+            image: "https://i.pinimg.com/564x/01/53/e7/0153e77057ca8f0f2736c2871bc2438c.jpg",
+        },
+        {
+            id: 3,
+            title: "Product 3",
+            rating: "4.2",
+            image: "https://i.pinimg.com/564x/01/53/e7/0153e77057ca8f0f2736c2871bc2438c.jpg",
+        },
+        {
+            id: 4,
+            title: "Product 4",
+            rating: "3.8",
+            image: "https://i.pinimg.com/564x/01/53/e7/0153e77057ca8f0f2736c2871bc2438c.jpg",
+        },
+        {
+            id: 5,
+            title: "Product 5",
+            rating: "4.9",
+            image: "https://i.pinimg.com/564x/01/53/e7/0153e77057ca8f0f2736c2871bc2438c.jpg",
+        },
+        {
+            id: 6,
+            title: "Product 6",
+            rating: "4.7",
+            image: "https://i.pinimg.com/564x/01/53/e7/0153e77057ca8f0f2736c2871bc2438c.jpg",
+        },
+        // Add more products as needed
+    ];
+    const sliderRef = useRef(null);
+    const [isDragging, setIsDragging] = useState(false);
+    const [startX, setStartX] = useState(0);
+    const [scrollLeft, setScrollLeft] = useState(0);
+
+    const scrollLeftHandler = () => {
+        if (sliderRef.current) {
+            sliderRef.current.scrollBy({ left: -300, behavior: "smooth" });
+        }
+    };
+
+    const scrollRightHandler = () => {
+        if (sliderRef.current) {
+            sliderRef.current.scrollBy({ left: 300, behavior: "smooth" });
+        }
+    };
+
+    const startDrag = (e) => {
+        setIsDragging(true);
+        setStartX(e.pageX || e.touches[0].pageX);
+        setScrollLeft(sliderRef.current.scrollLeft);
+    };
+
+    const drag = (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX || e.touches[0].pageX;
+        const walk = (x - startX) * 2; // multiply by 2 for faster scroll
+        sliderRef.current.scrollLeft = scrollLeft - walk;
+    };
+
+    const endDrag = () => {
+        setIsDragging(false);
+    };
+
+    useEffect(() => {
+        const slider = sliderRef.current;
+
+        if (window.innerWidth <= 1024) {
+            // Apply drag only on devices with width <= 1024px
+            slider.addEventListener("touchstart", startDrag);
+            slider.addEventListener("touchmove", drag);
+            slider.addEventListener("touchend", endDrag);
+        }
+
+        return () => {
+            if (window.innerWidth <= 1024) {
+                slider.removeEventListener("touchstart", startDrag);
+                slider.removeEventListener("touchmove", drag);
+                slider.removeEventListener("touchend", endDrag);
+            }
+        };
+    }, [isDragging, startX, scrollLeft]);
+    return (
+        <div className="w-full p-4 sm:p-8 md:p-12 bg-slate-800 shadow-lg">
+            <div className="w-full flex flex-col md:flex-row justify-center gap-6 mb-8">
+                {/* Movie Info */}
+                <div className="w-full md:w-2/5 relative">
+                    <img
+                        src="https://i.pinimg.com/564x/18/d7/4e/18d74ef46e722828f75cca91b009f4a5.jpg"
+                        alt="Movie"
+                        className="w-full rounded-3xl shadow-md"
+                    />
+                    <button
+                        onClick={handleSaveClick}
+                        className={`absolute top-3 right-3 md:top-4 md:right-4 p-3 rounded-full shadow-lg transition-colors duration-300 ${
+                            isSaved
+                                ? "bg-blue-500 text-white"
+                                : "bg-gray-200 text-gray-700"
+                        }`}
+                        title={isSaved ? "Saved" : "Save"}
+                        style={{
+                            backdropFilter: "blur(4px)", // Làm mờ nền phía sau nút
+                            backgroundColor: "rgba(255, 255, 255, 0.6)", // Nền bán trong suốt
+                        }}
+                    >
+                        <FontAwesomeIcon
+                            icon={faBookmark}
+                            className="h-5 w-5"
+                        />
+                    </button>
+                </div>
+
+                <div className="w-full md:w-3/5 p-3">
+                    <div className="p-2 text-3xl font-bold text-blue-400">
+                        <p>Title Film</p>
                     </div>
-                    <div className="p-2 w-full flex items-center gap-4">
+                    <div className="p-2 text-base font-semibold text-blue-200 flex items-center gap-3">
+                        <p>Year</p>
+                        <p>&#8226;</p>
+                        <p>Duration</p>
+                    </div>
+                    <div className="p-2">
+                        {["Thể loại 1", "Thể loại 2", "Thể loại 3"].map(
+                            (genre, index) => (
+                                <a
+                                    key={index}
+                                    href="!#"
+                                    className="p-1 m-1 rounded-md text-white bg-slate-600 hover:bg-blue-500 transition-colors duration-200"
+                                >
+                                    {genre}
+                                </a>
+                            )
+                        )}
+                    </div>
+                    <div className="p-2 flex items-center gap-4">
                         <p className="text-lg font-medium text-white">
-                            Đánh giá:
+                            Đánh giá: 4.5
+                            <FontAwesomeIcon
+                                className="text-yellow-500"
+                                icon={faStar}
+                            />
                         </p>
-                        <div className="flex items-center">
-                            <span className="text-white mr-2">4.5</span>
-                            <svg
-                                className="w-6 h-6 text-yellow-400"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                            >
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.36 2.433a1 1 0 00-.364 1.118l1.286 3.957c.3.921-.755 1.688-1.54 1.118l-3.36-2.433a1 1 0 00-1.176 0l-3.36 2.433c-.784.57-1.839-.197-1.54-1.118l1.286-3.957a1 1 0 00-.364-1.118L2.293 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
-                            </svg>
-                            <svg
-                                className="w-6 h-6 text-yellow-400"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                            >
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.36 2.433a1 1 0 00-.364 1.118l1.286 3.957c.3.921-.755 1.688-1.54 1.118l-3.36-2.433a1 1 0 00-1.176 0l-3.36 2.433c-.784.57-1.839-.197-1.54-1.118l1.286-3.957a1 1 0 00-.364-1.118L2.293 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
-                            </svg>
-                            <svg
-                                className="w-6 h-6 text-yellow-400"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                            >
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.36 2.433a1 1 0 00-.364 1.118l1.286 3.957c.3.921-.755 1.688-1.54 1.118l-3.36-2.433a1 1 0 00-1.176 0l-3.36 2.433c-.784.57-1.839-.197-1.54-1.118l1.286-3.957a1 1 0 00-.364-1.118L2.293 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
-                            </svg>
-                            <svg
-                                className="w-6 h-6 text-yellow-400"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                            >
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.36 2.433a1 1 0 00-.364 1.118l1.286 3.957c.3.921-.755 1.688-1.54 1.118l-3.36-2.433a1 1 0 00-1.176 0l-3.36 2.433c-.784.57-1.839-.197-1.54-1.118l1.286-3.957a1 1 0 00-.364-1.118L2.293 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
-                            </svg>
-                            <svg
-                                className="w-6 h-6 text-yellow-400"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                            >
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.36 2.433a1 1 0 00-.364 1.118l1.286 3.957c.3.921-.755 1.688-1.54 1.118l-3.36-2.433a1 1 0 00-1.176 0l-3.36 2.433c-.784.57-1.839-.197-1.54-1.118l1.286-3.957a1 1 0 00-.364-1.118L2.293 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
-                            </svg>
-                        </div>
                     </div>
-                    <div className="p-2 w-full">
+                    <div className="p-2">
                         <p className="text-lg font-medium text-white">
                             Danh sách tập:
                         </p>
-                        <div className="grid grid-cols-6 gap-4 mt-2">
-                            {/* Danh sách tập */}
-                            {Array.from({ length: 12 }).map((_, index) => (
-                                <button
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-3">
+                            {Array.from({ length: 20 }).map((_, index) => (
+                                <a
+                                    href="!#"
                                     key={index}
-                                    className="bg-gradient-to-r from-slate-500
-                                    to-blue-950 p-1 rounded-lg text-white
-                                    shadow-lg hover:shadow-xl transition-shadow
-                                    duration-300 text-center"
+                                    className="bg-gradient-to-r from-slate-500 to-blue-700 p-2 rounded-md text-white shadow-md hover:shadow-lg transition-all duration-300 text-center hover:text-black hover:bg-stone-800"
                                 >
-                                    <span className="text-lg font-semibold">
+                                    <span className="text-sm font-medium">
                                         Tập {index + 1}
                                     </span>
-                                </button>
+                                </a>
                             ))}
                         </div>
                     </div>
-                    <div className="p-4 w-full mt-4">
+                    <div className="p-4 mt-4">
                         <h2 className="text-lg font-bold text-white mb-2">
                             Nội dung phim
                         </h2>
@@ -113,215 +199,146 @@ const MovieDetail = () => {
                             ngắn gọn nhưng đủ hấp dẫn để thu hút người xem.
                         </p>
                     </div>
-                    <div className="p-2 text-gray-600 text-sm">
-                        <button className="bg-red-500 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 animate-pulse">
+                    <div className="p-2">
+                        <button
+                            onClick={handleWatchNowClick}
+                            className="bg-red-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg transform hover:scale-105 active:scale-95 transition duration-300 animate-pulse"
+                        >
                             <span className="mr-1">Watching Now </span>
                             <FontAwesomeIcon icon={faPlay} />
                         </button>
                     </div>
                 </div>
             </div>
-            <video className="w-full bg-black mb-8" controls>
+            <video id="movie-video" className="w-full bg-black mb-8" controls>
                 <source src="path_to_video.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
             </video>
-            <div className="py-8 px-4 md:px-12 mb-8">
-                <div className="mx-auto">
-                    <h2 className="text-3xl font-bold mb-6 text-white">
-                        Suggested Movies
-                    </h2>
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                        <div className="bg-gray-700 p-4 rounded-lg shadow-lg">
-                            <img
-                                src="./src/assets/img/SpiderMan.jpg"
-                                alt="Suggested Movie"
-                                className="w-full h-48 object-cover rounded-lg mb-4"
-                            />
-                            <h3 className="text-xl font-bold text-white">
-                                Movie Title
-                            </h3>
-                            <p className="text-gray-400">
-                                Short description of the movie.
-                            </p>
+            <div className="relative px-8 py-4 bg-slate-700 w-full">
+                <h1 className="my-4 text-blue-500 font-bold text-3xl">More</h1>
+                <button
+                    onClick={scrollLeftHandler}
+                    className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full z-10"
+                >
+                    &#8592;
+                </button>
+                <button
+                    onClick={scrollRightHandler}
+                    className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full z-10"
+                >
+                    &#8594;
+                </button>
+                <div
+                    ref={sliderRef}
+                    className="flex overflow-x-scroll scroll-smooth scrollbar-hide"
+                    style={{ scrollSnapType: "x mandatory" }}
+                >
+                    {products.map((product, index) => (
+                        <div
+                            key={index}
+                            className="min-w-[300px] mx-2"
+                            style={{ scrollSnapAlign: "start" }}
+                        >
+                            <div className="bg-slate-800 rounded-md shadow-lg overflow-hidden transition-transform transform hover:scale-105">
+                                <div className="overflow-hidden">
+                                    <img
+                                        src={product.image}
+                                        alt={product.title}
+                                        className="w-80 h-full object-cover transition-transform transform hover:scale-110"
+                                    />
+                                </div>
+                                <div className="p-4">
+                                    <h2 className="text-xl font-semibold text-white ">
+                                        {product.title}
+                                    </h2>
+                                    <p className="text-bs text-white">
+                                        Đánh giá: {product.rating}{" "}
+                                        <FontAwesomeIcon
+                                            className="text-yellow-500"
+                                            icon={faStar}
+                                        />
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <div className="bg-gray-700 p-4 rounded-lg shadow-lg">
-                            <img
-                                src="./src/assets/img/HoangTuLai.png"
-                                alt="Suggested Movie"
-                                className="w-full h-48 object-cover rounded-lg mb-4"
-                            />
-                            <h3 className="text-xl font-bold text-white">
-                                Movie Title
-                            </h3>
-                            <p className="text-gray-400">
-                                Short description of the movie.
-                            </p>
-                        </div>
-                        <div className="bg-gray-700 p-4 rounded-lg shadow-lg">
-                            <img
-                                src="./src/assets/img/SpiderMan.jpg"
-                                alt="Suggested Movie"
-                                className="w-full h-48 object-cover rounded-lg mb-4"
-                            />
-                            <h3 className="text-xl font-bold text-white">
-                                Movie Title
-                            </h3>
-                            <p className="text-gray-400">
-                                Short description of the movie.
-                            </p>
-                        </div>
-                        <div className="bg-gray-700 p-4 rounded-lg shadow-lg">
-                            <img
-                                src="./src/assets/img/HoangTuLai.png"
-                                alt="Suggested Movie"
-                                className="w-full h-48 object-cover rounded-lg mb-4"
-                            />
-                            <h3 className="text-xl font-bold text-white">
-                                Movie Title
-                            </h3>
-                            <p className="text-gray-400">
-                                Short description of the movie.
-                            </p>
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </div>
-            <div className="max-w-3xl mx-auto p-4 bg-gray-800 text-white shadow-md rounded-lg w-full">
+            <div className="max-w-3xl mx-auto p-4 bg-gray-800 text-white shadow-lg rounded-lg">
                 <h2 className="text-xl font-semibold mb-4">259 BÌNH LUẬN</h2>
-
-                {/* Input Comment */}
-                <div className="flex mb-4 w-full">
+                <div className="flex mb-4">
                     <img
                         src="https://bootdey.com/img/Content/user_1.jpg"
                         alt="User Avatar"
                         className="w-10 h-10 rounded-full mr-3"
                     />
                     <textarea
-                        className="flex-1 border border-gray-700 bg-gray-600 rounded-lg p-2 w-full resize-none"
+                        className="flex-1 border border-gray-700 bg-gray-600 rounded-lg p-2 resize-none"
                         placeholder="Viết bình luận..."
                         rows="3"
                     ></textarea>
                 </div>
-                <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200 w-full">
+                <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300 w-full">
                     Đăng
                 </button>
-
                 <hr className="my-4 border-gray-600" />
-
-                {/* Comments List */}
-                <ul className="space-y-4 w-full">
-                    <li className="flex w-full">
-                        <img
-                            src="https://bootdey.com/img/Content/user_2.jpg"
-                            alt="User Avatar"
-                            className="w-10 h-10 rounded-full mr-3"
-                        />
-                        <div className="flex-1">
-                            <div className="flex justify-between">
-                                <strong className="text-blue-400">
-                                    @Luân Hồi Điện Chủ
-                                </strong>
-                                <span className="text-gray-400 text-sm">
-                                    1 năm trước
-                                </span>
+                <ul className="space-y-4">
+                    {[
+                        {
+                            name: "@Luân Hồi Điện Chủ",
+                            date: "1 năm trước",
+                            comment:
+                                "Đạo Huyền Sư – Phim Xuyên Không nhé cả nhà hữu...",
+                        },
+                        {
+                            name: "@Đại Thần",
+                            date: "7 ngày trước",
+                            comment:
+                                "Phim này có truyện không? Đợi tiếp mỏi mòn...",
+                        },
+                        {
+                            name: "@Hoàng Đạo Hữu",
+                            date: "26 ngày trước",
+                            comment: "Đang hay lại hết chân thật.",
+                        },
+                        {
+                            name: "@Trần Hoàng Thế Tâm",
+                            date: "1 tháng trước",
+                            comment: "Phim hay vầy mà lâu không ra phần mới.",
+                        },
+                    ].map((user, index) => (
+                        <li key={index} className="flex">
+                            <img
+                                src={`https://bootdey.com/img/Content/user_${
+                                    index + 2
+                                }.jpg`}
+                                alt="User Avatar"
+                                className="w-10 h-10 rounded-full mr-3"
+                            />
+                            <div className="flex-1">
+                                <div className="flex justify-between">
+                                    <strong className="text-blue-400">
+                                        {user.name}
+                                    </strong>
+                                    <span className="text-gray-400 text-sm">
+                                        {user.date}
+                                    </span>
+                                </div>
+                                <p className="text-gray-300 mt-1">
+                                    {user.comment}
+                                </p>
+                                <div className="flex items-center mt-2">
+                                    <span className="text-yellow-400 mr-2">
+                                        0
+                                    </span>
+                                    <button className="flex items-center text-blue-400 hover:text-blue-600 transition-colors">
+                                        <i className="fas fa-thumbs-up mr-1"></i>
+                                        Like
+                                    </button>
+                                </div>
                             </div>
-                            <p className="text-gray-300 mt-1">
-                                Đạo Huyền Sư – Phim Xuyên Không nhé cả nhà hữu
-                                <br />
-                                Tổng cộng 16 tập chiếu vào mỗi thứ 3 hàng tuần -
-                                Ngày đầu 2 tập + 1 tập pre movie (giới thiệu
-                                nhân vật xuyên không )
-                            </p>
-                            <div className="flex items-center mt-2">
-                                <span className="text-yellow-400 mr-2">7</span>
-                                <button className="flex items-center text-blue-400 hover:text-blue-600">
-                                    <i className="fas fa-thumbs-up mr-1"></i>
-                                    Like
-                                </button>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="flex w-full">
-                        <img
-                            src="https://bootdey.com/img/Content/user_3.jpg"
-                            alt="User Avatar"
-                            className="w-10 h-10 rounded-full mr-3"
-                        />
-                        <div className="flex-1">
-                            <div className="flex justify-between">
-                                <strong className="text-blue-400">
-                                    @Đại Thần
-                                </strong>
-                                <span className="text-gray-400 text-sm">
-                                    7 ngày trước
-                                </span>
-                            </div>
-                            <p className="text-gray-300 mt-1">
-                                Phim này có truyện không? Đợi tiếp mỏi mòn...
-                            </p>
-                            <div className="flex items-center mt-2">
-                                <span className="text-yellow-400 mr-2">0</span>
-                                <button className="flex items-center text-blue-400 hover:text-blue-600">
-                                    <i className="fas fa-thumbs-up mr-1"></i>
-                                    Like
-                                </button>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="flex w-full">
-                        <img
-                            src="https://bootdey.com/img/Content/user_4.jpg"
-                            alt="User Avatar"
-                            className="w-10 h-10 rounded-full mr-3"
-                        />
-                        <div className="flex-1">
-                            <div className="flex justify-between">
-                                <strong className="text-blue-400">
-                                    @Hoàng Đạo Hữu
-                                </strong>
-                                <span className="text-gray-400 text-sm">
-                                    26 ngày trước
-                                </span>
-                            </div>
-                            <p className="text-gray-300 mt-1">
-                                Đang hay lại hết chân thật.
-                            </p>
-                            <div className="flex items-center mt-2">
-                                <span className="text-yellow-400 mr-2">0</span>
-                                <button className="flex items-center text-blue-400 hover:text-blue-600">
-                                    <i className="fas fa-thumbs-up mr-1"></i>
-                                    Like
-                                </button>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="flex w-full">
-                        <img
-                            src="https://bootdey.com/img/Content/user_5.jpg"
-                            alt="User Avatar"
-                            className="w-10 h-10 rounded-full mr-3"
-                        />
-                        <div className="flex-1">
-                            <div className="flex justify-between">
-                                <strong className="text-blue-400">
-                                    @Trần Hoàng Thế Tâm
-                                </strong>
-                                <span className="text-gray-400 text-sm">
-                                    1 tháng trước
-                                </span>
-                            </div>
-                            <p className="text-gray-300 mt-1">
-                                Phim hay vầy mà lâu không ra phần mới.
-                            </p>
-                            <div className="flex items-center mt-2">
-                                <span className="text-yellow-400 mr-2">0</span>
-                                <button className="flex items-center text-blue-400 hover:text-blue-600">
-                                    <i className="fas fa-thumbs-up mr-1"></i>
-                                    Like
-                                </button>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
+                    ))}
                 </ul>
             </div>
         </div>
