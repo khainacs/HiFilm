@@ -9,8 +9,12 @@ import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
 /**
- * author: khainacs
+ * @author khaincas
+ * @since 10/11/2024
+ * @version 1.0
+ * @return use for test api
  */
 @Configuration
 public class SwaggerConfig {

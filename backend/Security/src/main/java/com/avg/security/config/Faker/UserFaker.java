@@ -9,9 +9,13 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
-@Author: khainacs
-*/
+
+/**
+ * @author :khainacs
+ * @version :1.0
+ * @since :10/11/10
+ * @return: fake data for user table
+ */
 @Component
 public class UserFaker implements CommandLineRunner {
     private final Faker faker;

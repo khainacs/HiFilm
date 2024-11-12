@@ -19,6 +19,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @author khainacs
+ * @version 1.0
+ * @since 10/11/2024
+ */
 @RestController
 @ResponseBody
 @RequiredArgsConstructor
@@ -29,6 +34,10 @@ public class UserController {
     @Autowired
     private AuthenticationService authenticationService;
 
+    /**
+     * @param userDTO
+     * @return illustrating process register. Return http code and token
+     */
     @PostMapping(ApiPath.USER_REGISTER)
     public ResponseEntity<?> register(@RequestBody UserDTO userDTO){
         String message = "";
@@ -46,6 +55,10 @@ public class UserController {
         }
     }
 
+    /**
+     * @param userDTO
+     * @return illustrating process login. Return http code and token.
+     */
     @PostMapping(ApiPath.USER_AUTHENTICATE)
     public ResponseEntity<?> authenticate(@RequestBody UserDTO userDTO){
         String message = "";
@@ -81,6 +94,10 @@ public class UserController {
         return null;
     }
 
+    /**
+     * @param request
+     * @return current user.
+     */
     @PostMapping(ApiPath.GET_CURRENT_USER)
     public ResponseEntity<?> getCurrentUser(@RequestBody AccessTokenRequest request){
         UserResponseDTO response = authenticationService.getCurrentUserByAccessToken(request.getToken());

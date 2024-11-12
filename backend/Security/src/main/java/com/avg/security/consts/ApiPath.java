@@ -1,5 +1,10 @@
 package com.avg.security.consts;
 
+/**
+ * @author khainacs
+ * @since: 10/11/2023
+ * @return: all backend api URL (swagger and controller)
+ */
 public interface ApiPath {
     /**
      * Swagger URL

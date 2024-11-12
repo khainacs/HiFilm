@@ -9,19 +9,21 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
 
 import java.util.Map;
-/*
-@Author: khainacs
-*/
+
+/**
+ * @author :khainacs
+ * @version : 1.0
+ * @since :10/11/2024
+ */
 @Configuration
 @PropertySource(value = ".env")
 public class DotenvConfig implements EnvironmentPostProcessor {
 
+
     /**
      * @param environment
      * @param application
-     *
-     * purpose: tự động tải các biến môi trường từ file .env. Đảm ảo cá biến môi trường từ
-     * .env sẽ có sẵn trong toàn bộ ứng dụng
+     * @Return tự động tải các có sẵn trong toàn bộ ứng dụng biến môi trường từ file .env. Đảm ảo cá biến môi trường từ .env sẽ
      */
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
