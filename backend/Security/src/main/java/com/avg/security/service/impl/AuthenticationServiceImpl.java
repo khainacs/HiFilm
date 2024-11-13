@@ -11,6 +11,7 @@ import com.avg.security.mapper.UserMapper;
 import com.avg.security.repository.PasswordResetTokenRepository;
 import com.avg.security.repository.RoleRepository;
 import com.avg.security.repository.UserRepository;
+import com.avg.security.response.ForgotPasswordResponseDTO;
 import com.avg.security.response.ResponseDTO;
 import com.avg.security.response.UserResponseDTO;
 import com.avg.security.service.AuthenticationService;
@@ -38,6 +39,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
+
     private final JwtService jwtService;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
@@ -45,6 +47,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordResetTokenRepository passwordResetTokenRepository;
+    private final MailService mailService;
 
     @Override
     public void setPasswordResetToken(User user, ForgotPasswordType type  ,String token){
@@ -54,6 +57,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Timestamp expiryDate = new Timestamp(new Date().getTime() + expiration);
         passwordResetToken.setExpiryDate(expiryDate);
         passwordResetToken.setType(type.value);
+        passwordResetToken.setUser(user);
         passwordResetTokenRepository.saveAndFlush(passwordResetToken);
     }
 
@@ -202,13 +206,45 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     /**
      * @param email
-     * @return
-     * This function is designed to handle process forgot password
+     * @return This function is designed to handle process forgot password
      */
     @Override
-    public ResponseDTO<User> forgotPassword(String email) {
-        return null;
+    public ForgotPasswordResponseDTO forgotPassword(String email) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isEmpty()) {
+            return ForgotPasswordResponseDTO.builder()
+                    .message("Email không tồn tại trong hệ thống")
+                    .errorCode(404)
+                    .build();
+        }
+
+        User user = optionalUser.get();
+        String token = UUID.randomUUID().toString();
+        setPasswordResetToken(user, ForgotPasswordType.PASSWORD_RESET, token);
+
+        try {
+            String resetPasswordLink = "http://localhost:5173/reset-password?token=" + token;
+            String emailContent = "Chào " + user.getName() + ",\n\n"
+                    + "Vui lòng nhấn vào liên kết dưới đây để đặt lại mật khẩu của bạn:\n"
+                    + resetPasswordLink + "\n\n"
+                    + "Nếu bạn không yêu cầu đặt lại mật khẩu, hãy bỏ qua email này.";
+
+            mailService.sendEmail(user.getEmail(), "Yêu cầu đặt lại mật khẩu", emailContent);
+
+            return ForgotPasswordResponseDTO.builder()
+                    .message("Yêu cầu đặt lại mật khẩu đã được gửi qua email")
+                    .resetToken(token)
+                    .build();
+        } catch (Exception e) {
+            log.error("Lỗi khi gửi email đặt lại mật khẩu", e);
+            return ForgotPasswordResponseDTO.builder()
+                    .message("Lỗi khi gửi email đặt lại mật khẩu")
+                    .errorCode(500)
+                    .build();
+        }
     }
+
+
 
     /**
      * @param token
