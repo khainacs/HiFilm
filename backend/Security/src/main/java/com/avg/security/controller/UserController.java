@@ -5,6 +5,7 @@ import com.avg.security.Enum.ErrorCode;
 import com.avg.security.consts.ApiPath;
 import com.avg.security.dto.*;
 import com.avg.security.repository.UserRepository;
+import com.avg.security.response.ForgotPasswordResponseDTO;
 import com.avg.security.response.ResponseHandler;
 import com.avg.security.response.UserResponseDTO;
 import com.avg.security.service.AuthenticationService;
@@ -19,11 +20,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * @author khainacs
- * @version 1.0
- * @since 10/11/2024
- */
+import org.springframework.mail.javamail.JavaMailSender;
+
+
 @RestController
 @ResponseBody
 @RequiredArgsConstructor
@@ -34,10 +33,6 @@ public class UserController {
     @Autowired
     private AuthenticationService authenticationService;
 
-    /**
-     * @param userDTO
-     * @return illustrating process register. Return http code and token
-     */
     @PostMapping(ApiPath.USER_REGISTER)
     public ResponseEntity<?> register(@RequestBody UserDTO userDTO){
         String message = "";
@@ -55,10 +50,6 @@ public class UserController {
         }
     }
 
-    /**
-     * @param userDTO
-     * @return illustrating process login. Return http code and token.
-     */
     @PostMapping(ApiPath.USER_AUTHENTICATE)
     public ResponseEntity<?> authenticate(@RequestBody UserDTO userDTO){
         String message = "";
@@ -86,7 +77,15 @@ public class UserController {
 
     @PostMapping(ApiPath.USER_FORGOT_PASSWORD)
     public ResponseEntity<?> forgotPassword(@RequestBody PasswordResetTokenRequest request){
-        return null;
+        ForgotPasswordResponseDTO response = authenticationService.forgotPassword(request.getEmail());
+        if (response.getErrorCode() == 404) {
+            return ResponseHandler.responseBuilder(response.getMessage(), HttpStatus.NOT_FOUND);
+        }
+        else if (response.getErrorCode() == 500) {
+            return ResponseHandler.responseBuilder(response.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        } else {
+            return ResponseHandler.responseOk("Password reset request successfully sent", response);
+        }
     }
 
     @PostMapping(ApiPath.USER_CHANGE_PASSWORD)
@@ -94,10 +93,6 @@ public class UserController {
         return null;
     }
 
-    /**
-     * @param request
-     * @return current user.
-     */
     @PostMapping(ApiPath.GET_CURRENT_USER)
     public ResponseEntity<?> getCurrentUser(@RequestBody AccessTokenRequest request){
         UserResponseDTO response = authenticationService.getCurrentUserByAccessToken(request.getToken());
