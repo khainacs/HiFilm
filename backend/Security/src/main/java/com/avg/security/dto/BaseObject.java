@@ -1,4 +1,4 @@
-package org.example.dto;
+package com.avg.security.dto;
 
 import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
