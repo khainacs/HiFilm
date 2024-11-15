@@ -1,0 +1,26 @@
+server:
+  port: 9002
+
+spring:
+  application:
+    name: elasticsearch
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    jpa:
+      hibernate:
+        ddl-auto: update
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.MySQL8Dialect
+  data:
+    elasticsearch:
+      cluster-node: localhost:9200
+      rest-uris: http://localhost:9200
+      repositories:
+        enabled: true
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
