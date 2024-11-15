@@ -1,0 +1,5 @@
+#Bỏ qua thư mục node modules
+node_modules/
+
+# Bỏ qua toàn bộ nội dung của thư mục uploads
+uploads/
