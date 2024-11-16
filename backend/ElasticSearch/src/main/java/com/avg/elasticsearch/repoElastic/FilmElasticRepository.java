@@ -14,11 +14,6 @@ public interface FilmElasticRepository extends ElasticsearchRepository<Film, Lon
 //     Tìm phim theo tiêu đề chứa từ khóa
     @Query("{\"bool\": {\"must\": [{\"wildcard\": {\"title\": \"*?0*\"}}]}}")
     Page<Film> findByTitleContaining(String title, Pageable pageable);
-
-
-
-
-
 //    // Tìm phim theo năm phát hành
 //    @Query("{\"match\": {\"releaseYear\": {\"query\": \"?0\"}}}")
 //    Page<Film> findByReleaseYear(Integer releaseYear, Pageable pageable);
