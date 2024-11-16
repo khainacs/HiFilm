@@ -11,7 +11,7 @@ import com.avg.security.mapper.UserMapper;
 import com.avg.security.repository.PasswordResetTokenRepository;
 import com.avg.security.repository.RoleRepository;
 import com.avg.security.repository.UserRepository;
-import com.avg.security.response.ForgotPasswordResponseDTO;
+import com.avg.security.response.MessageResponse;
 import com.avg.security.response.ResponseDTO;
 import com.avg.security.response.UserResponseDTO;
 import com.avg.security.service.AuthenticationService;
@@ -20,6 +20,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -47,7 +48,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordResetTokenRepository passwordResetTokenRepository;
-    private final MailService mailService;
+    private final MailServiceImpl mailService;
 
     @Override
     public void setPasswordResetToken(User user, ForgotPasswordType type  ,String token){
@@ -181,8 +182,19 @@ public class AuthenticationServiceImpl implements AuthenticationService {
      * This function is designed to handle verify from email
      */
     @Override
-    public ResponseDTO<User> confirm(String token) {
-        return  null;
+    public MessageResponse confirm(String token) {
+        PasswordResetToken passwordResetToken = passwordResetTokenRepository.findByToken(token).orElse(null);
+        if(passwordResetToken == null || passwordResetToken.getExpiryDate().before(new Date())){
+            return MessageResponse.builder().type(HttpStatus.BAD_REQUEST).message("Token is expired").build();
+        }
+
+        passwordResetToken.setActivated(true);
+        passwordResetToken.getUser().setActive(true);
+        passwordResetTokenRepository.save(passwordResetToken);
+        return  MessageResponse.builder()
+                                .type(HttpStatus.OK)
+                                .message("Email verified successfully")
+                                .build();
     }
 
 
@@ -209,39 +221,39 @@ public class AuthenticationServiceImpl implements AuthenticationService {
      * @return This function is designed to handle process forgot password
      */
     @Override
-    public ForgotPasswordResponseDTO forgotPassword(String email) {
-        Optional<User> optionalUser = userRepository.findByEmail(email);
-        if (optionalUser.isEmpty()) {
-            return ForgotPasswordResponseDTO.builder()
-                    .message("Email không tồn tại trong hệ thống")
-                    .errorCode(404)
-                    .build();
+    public MessageResponse forgotPassword(String email) {
+        if(email == null || email.isEmpty()){
+            return MessageResponse.builder()
+                                    .type(HttpStatus.BAD_GATEWAY)
+                                    .message("Email is required")
+                                    .build();
         }
 
-        User user = optionalUser.get();
-        String token = UUID.randomUUID().toString();
+        User user = userRepository.findByEmail(email).orElse(null);
+        if(user == null){
+            return MessageResponse.builder()
+                                    .type(HttpStatus.BAD_GATEWAY)
+                                    .message("Email is not exist")
+                                    .build();
+        }
+
+        String token = "AVG_" + UUID.randomUUID() + System.currentTimeMillis() + "_HIFILM";
         setPasswordResetToken(user, ForgotPasswordType.PASSWORD_RESET, token);
 
-        try {
-            String resetPasswordLink = "http://localhost:5173/reset-password?token=" + token;
-            String emailContent = "Chào " + user.getName() + ",\n\n"
-                    + "Vui lòng nhấn vào liên kết dưới đây để đặt lại mật khẩu của bạn:\n"
-                    + resetPasswordLink + "\n\n"
-                    + "Nếu bạn không yêu cầu đặt lại mật khẩu, hãy bỏ qua email này.";
-
-            mailService.sendEmail(user.getEmail(), "Yêu cầu đặt lại mật khẩu", emailContent);
-
-            return ForgotPasswordResponseDTO.builder()
-                    .message("Yêu cầu đặt lại mật khẩu đã được gửi qua email")
-                    .resetToken(token)
-                    .build();
-        } catch (Exception e) {
-            log.error("Lỗi khi gửi email đặt lại mật khẩu", e);
-            return ForgotPasswordResponseDTO.builder()
-                    .message("Lỗi khi gửi email đặt lại mật khẩu")
-                    .errorCode(500)
-                    .build();
+        try{
+            mailService.sendEmailForgotPassword(user.getEmail(), user.getName(), token);
+        }catch (Exception e){
+            System.out.println("Error Send Mail: " + e.getMessage());
+            return MessageResponse.builder()
+                                    .type(HttpStatus.BAD_GATEWAY)
+                                    .message("Error Send Mail")
+                                    .build();
         }
+
+        return MessageResponse.builder()
+                .type(HttpStatus.OK)
+                .message("Email sent successfully")
+                .build();
     }
 
 
@@ -253,7 +265,27 @@ public class AuthenticationServiceImpl implements AuthenticationService {
      * This function is designed to handle change password in profile
      */
     @Override
-    public ResponseDTO<User> changePassword(String token, String password) {
-        return null;
+    public MessageResponse changePassword(String token, String password) {
+        if (token == null || password == null || token.isEmpty() || password.isEmpty()){
+            return MessageResponse.builder().type(HttpStatus.BAD_REQUEST).message("Invalid token or password").build();
+        }
+
+        PasswordResetToken passwordResetToken = passwordResetTokenRepository.findByToken(token).orElse(null);
+        if (passwordResetToken == null
+                || passwordResetToken.getExpiryDate().before(new Date())
+                || passwordResetToken.isActivated()){
+            return MessageResponse.builder().type(HttpStatus.BAD_REQUEST).message("Invalid token").build();
+        }
+
+        User user = passwordResetToken.getUser();
+        user.setPassword(passwordEncoder.encode(password));
+        userRepository.save(user);
+        passwordResetToken.setActivated(true);
+        passwordResetTokenRepository.save(passwordResetToken);
+
+        return MessageResponse.builder()
+                                .type(HttpStatus.OK)
+                                .message("Password changed successfully")
+                                .build();
     }
 }

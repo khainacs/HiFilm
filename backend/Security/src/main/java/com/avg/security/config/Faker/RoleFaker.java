@@ -11,8 +11,15 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 
+/**
+ * @author: khainascs
+ * @Param:
+ * @Return: fake data for Role table, include USER and ADMIN
+ * @Version: 1.0
+ * @Since: 10/11/2024
+ */
+@Component
 public class RoleFaker implements CommandLineRunner {
     private final Faker faker;
     private final RoleRepository roleRepository;

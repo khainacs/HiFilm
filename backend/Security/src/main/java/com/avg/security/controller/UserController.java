@@ -5,7 +5,7 @@ import com.avg.security.Enum.ErrorCode;
 import com.avg.security.consts.ApiPath;
 import com.avg.security.dto.*;
 import com.avg.security.repository.UserRepository;
-import com.avg.security.response.ForgotPasswordResponseDTO;
+import com.avg.security.response.MessageResponse;
 import com.avg.security.response.ResponseHandler;
 import com.avg.security.response.UserResponseDTO;
 import com.avg.security.service.AuthenticationService;
@@ -72,25 +72,20 @@ public class UserController {
 
     @PostMapping(ApiPath.USER_CONFIRM_EMAIL)
     public ResponseEntity<?> confirm(@RequestBody ConfirmEmailRequest request){
-        return null;
+        MessageResponse authResponse = authenticationService.confirm(request.getToken());
+        return ResponseHandler.responseOk(authResponse.getMessage(), authResponse.getType());
     }
 
     @PostMapping(ApiPath.USER_FORGOT_PASSWORD)
     public ResponseEntity<?> forgotPassword(@RequestBody PasswordResetTokenRequest request){
-        ForgotPasswordResponseDTO response = authenticationService.forgotPassword(request.getEmail());
-        if (response.getErrorCode() == 404) {
-            return ResponseHandler.responseBuilder(response.getMessage(), HttpStatus.NOT_FOUND);
-        }
-        else if (response.getErrorCode() == 500) {
-            return ResponseHandler.responseBuilder(response.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        } else {
-            return ResponseHandler.responseOk("Password reset request successfully sent", response);
-        }
+        MessageResponse authResponse = authenticationService.forgotPassword(request.getEmail());
+        return ResponseHandler.responseOk(authResponse.getMessage(), authResponse.getType());
     }
 
     @PostMapping(ApiPath.USER_CHANGE_PASSWORD)
     public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest request){
-        return null;
+        MessageResponse authResponse = authenticationService.changePassword(request.getToken(), request.getNewPassword());
+        return ResponseHandler.responseOk(authResponse.getMessage(), authResponse.getType());
     }
 
     @PostMapping(ApiPath.GET_CURRENT_USER)
