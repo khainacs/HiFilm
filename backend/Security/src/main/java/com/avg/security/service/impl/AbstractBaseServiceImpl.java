@@ -1,10 +1,10 @@
-package org.example.service.impl;
+package com.avg.security.service.impl;
 
+import com.avg.security.mapper.AbstractMapper;
+import com.avg.security.service.BaseService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.mapper.AbstractMapper;
-import org.example.service.BaseService;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;

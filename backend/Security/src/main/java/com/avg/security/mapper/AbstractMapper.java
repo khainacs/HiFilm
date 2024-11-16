@@ -1,4 +1,4 @@
-package org.example.mapper;
+package com.avg.security.mapper;
 
 import lombok.Getter;
 import org.modelmapper.ModelMapper;
