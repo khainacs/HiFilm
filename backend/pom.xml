@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>Security</module>
+        <module>ElasticSearch</module>
     </modules>
 
     <parent>
