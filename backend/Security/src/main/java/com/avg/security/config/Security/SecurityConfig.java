@@ -1,13 +1,18 @@
 package com.avg.security.config.Security;
 
+import com.avg.security.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.avg.security.consts.ApiPath;
+import com.avg.security.handler.OAuth2AuthenticationFailureHandler;
+import com.avg.security.handler.OAuth2AuthenticationSuccessHandler;
 import com.avg.security.service.impl.LogoutService;
 import com.avg.security.service.UserService;
+import com.avg.security.service.impl.OAuth2Service;
 import com.avg.security.service.impl.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -30,6 +35,16 @@ public class SecurityConfig {
     private final LogoutService logoutService;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final UserDetailsServiceImpl userDetailsService;
+    @Autowired
+    private final OAuth2Service oAuth2Service;
+    @Lazy
+    private final HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
+
+    @Lazy
+    private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
+
+    @Lazy
+    private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
 
     private static final String[] WHITE_LIST_URL = {
             "/api/v1/auth/**",
@@ -42,7 +57,8 @@ public class SecurityConfig {
             "/v3/api-docs/**",
             "/swagger",
             "/webjars/**",
-            "/swagger-ui.html"
+            "/swagger-ui.html",
+            "/oauth2/**"
     };
 
     @Bean
@@ -52,6 +68,24 @@ public class SecurityConfig {
                 .userDetailsService(userDetailsService)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .oauth2Login(oauth2Login ->
+                        oauth2Login
+                                .authorizationEndpoint(authEndpoint ->
+                                        authEndpoint
+                                                .baseUri("/oauth2/redirect")
+                                                .authorizationRequestRepository(cookieAuthorizationRequestRepository())
+                                )
+                                .redirectionEndpoint(redirectEndpoint ->
+                                        redirectEndpoint
+                                                .baseUri("/oauth2/callback/*")
+                                )
+                                .userInfoEndpoint(userInfoEndpoint ->
+                                        userInfoEndpoint
+                                                .userService(oAuth2Service)
+                                )
+                                .successHandler(oAuth2AuthenticationSuccessHandler)
+                                .failureHandler(oAuth2AuthenticationFailureHandler)
+                )
                 .logout(logout -> logout.logoutUrl(ApiPath.LOGOUT)
                         .addLogoutHandler(logoutService)
                         .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext()));
@@ -66,5 +100,9 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
+    }
+    @Bean
+    public HttpCookieOAuth2AuthorizationRequestRepository cookieAuthorizationRequestRepository() {
+        return new HttpCookieOAuth2AuthorizationRequestRepository();
     }
 }
