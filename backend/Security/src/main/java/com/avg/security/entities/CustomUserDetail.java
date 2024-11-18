@@ -10,13 +10,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @Getter
+@Setter
 public class CustomUserDetail implements UserDetails {
     private static final Logger log = org.slf4j.LoggerFactory.getLogger(CustomUserDetail.class);
     private User user;
     private Role role;
+    private Map<String, Object> attributes;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -30,6 +33,11 @@ public class CustomUserDetail implements UserDetails {
     public CustomUserDetail(User user, Role role) {
         this.user = user;
         this.role = role;
+    }
+
+    public CustomUserDetail(User user, Map<String, Object> attributes) {
+        this.user = user;
+        this.attributes = attributes != null ? attributes : Map.of();
     }
 
     @Override
