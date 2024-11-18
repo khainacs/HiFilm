@@ -12,7 +12,7 @@ public interface ApiPath {
      * http://localhost:9001/swagger-ui/index.html#/
      * */
 
-    String API = "/api/v1";
+    String API = "/api-security/v1";
     //http://localhost:9001/api/v1
 
     //Ping

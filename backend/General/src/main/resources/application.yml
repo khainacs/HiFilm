@@ -1,9 +1,9 @@
 server:
-  port: 9001
+  port: 9003
 
 spring:
   application:
-    name: security-service
+    name: general-service
   datasource:
     url: ${DATABASE_URL}
     username: ${DATABASE_USERNAME}
@@ -23,22 +23,6 @@ spring:
       enabled: true
     livereload:
       enabled: true
-  mail:
-    host: ${MAIL_HOST}
-    port: ${MAIL_PORT}
-    username: ${MAIL_USERNAME}
-    password: ${MAIL_PASSWORD}
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-  google:
-    recaptcha:
-      id: ${GOOGLE_RECAPTCHA_ID}
-      secret: ${GOOGLE_RECAPTCHA_SECRET}
-      threshold: ${GOOGLE_RECAPTCHA_THRESHOLD}
 # Springdoc configuration
 springdoc:
   api-docs:

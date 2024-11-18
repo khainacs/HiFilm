@@ -1,7 +1,6 @@
 package com.avg.elasticsearch.repoElastic;
 
 import com.avg.elasticsearch.entities.Film;
-import io.lettuce.core.dynamic.annotation.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.annotations.Query;
