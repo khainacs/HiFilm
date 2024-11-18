@@ -2,18 +2,18 @@ package com.avg.elasticsearch.repoElastic;
 
 import com.avg.elasticsearch.entities.Film;
 import io.lettuce.core.dynamic.annotation.Param;
-import org.springframework.data.elasticsearch.annotations.Query;
-import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.elasticsearch.annotations.Query;
+import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 import java.util.List;
 
 public interface FilmElasticRepository extends ElasticsearchRepository<Film, Long> {
 
-//     Tìm phim theo tiêu đề chứa từ khóa
     @Query("{\"bool\": {\"must\": [{\"wildcard\": {\"title\": \"*?0*\"}}]}}")
     Page<Film> findByTitleContaining(String title, Pageable pageable);
+<<<<<<< HEAD
 //    // Tìm phim theo năm phát hành
 //    @Query("{\"match\": {\"releaseYear\": {\"query\": \"?0\"}}}")
 //    Page<Film> findByReleaseYear(Integer releaseYear, Pageable pageable);
@@ -25,4 +25,7 @@ public interface FilmElasticRepository extends ElasticsearchRepository<Film, Lon
 //    // Tìm phim theo quốc gia sản xuất
 //    @Query("{\"match\": {\"country\": {\"query\": \"?0\"}}}")
 //    Page<Film> findByCountry(String country, Pageable pageable);
+=======
+
+>>>>>>> 77f9cf8d96b5a6cf78e257c14917a7fbde47399f
 }

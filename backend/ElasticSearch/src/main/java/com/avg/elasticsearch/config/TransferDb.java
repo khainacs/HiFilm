@@ -48,27 +48,6 @@ public class TransferDb implements CommandLineRunner {
             films.add(filmForElastic);
         }
         filmElasticRepository.saveAll(films);
-        // Kiểm tra xem bảng Film có rỗng không
-//        List<Film> films = new ArrayList<>();
-//        filmElasticRepository.findAll().forEach(films::add);  // Chuyển Iterable thành List
-//        if (films.isEmpty()) {
-//            // Nếu bảng Film rỗng, tạo dữ liệu giả và lưu vào ElasticSearch
-//            List<Film> fakeFilms = new ArrayList<>();
-//            for (Film film : filmFaker.generateFilms(10)) {
-//                Film filmForElastic = Film.builder()
-//                        .id(film.getId())
-//                        .title(film.getTitle())
-//                        .alias(film.getAlias())
-//                        .releaseYear(film.getReleaseYear())
-//                        .country(film.getCountry())
-//                        .director(film.getDirector())
-//                        .status(film.getStatus())
-//                        .episodes(film.getEpisodes())
-//                        .categories(film.getCategories())
-//                        .build();
-//                fakeFilms.add(filmForElastic);
-//            }
-//            filmElasticRepository.saveAll(fakeFilms);
-//        }
+
     }
 }

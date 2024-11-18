@@ -1,8 +1,12 @@
 package com.avg.elasticsearch.controller;
 
+import co.elastic.clients.elasticsearch.core.SearchResponse;
+import co.elastic.clients.elasticsearch.core.search.Hit;
 import com.avg.elasticsearch.entities.Film;
-import com.avg.elasticsearch.repoElastic.FilmElasticRepository;
 import com.avg.elasticsearch.consts.ApiPath;
+import com.avg.elasticsearch.repoElastic.FilmElasticRepository;
+import com.avg.elasticsearch.response.ResponseFilm;
+import com.avg.elasticsearch.service.FilmService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,6 +14,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @ResponseBody
@@ -17,62 +24,22 @@ import org.springframework.web.bind.annotation.*;
 public class FilmController {
 
     @Autowired
-    private FilmElasticRepository filmElasticRepository;
+    private FilmService filmService;
 
-    // Tìm phim theo tiêu đề
     @GetMapping(ApiPath.SEARCH_FILM_API_URL)
-    public ResponseEntity<Page<Film>> findByTitleContaining(
+    public ResponseEntity<?> findByTitleContaining(
             @RequestParam String title,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Film> films = filmElasticRepository.findByTitleContaining(title, pageable);
-        return ResponseEntity.ok(films);
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize) {
+        ResponseFilm response = filmService.findByTitle(title,pageNumber, pageSize);
+        return ResponseEntity.ok(response);
     }
-    // Tìm tất cả phim
+
     @GetMapping(ApiPath.SEARCH_ALL_FILM_API_URL)
-    public ResponseEntity<Page<Film>> findAllFilms(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Film> films = filmElasticRepository.findAll(pageable);
-        return ResponseEntity.ok(films);
+    public ResponseEntity<?> findAllFilms(
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize) {
+        ResponseFilm response = filmService.findAll(pageNumber, pageSize);
+        return ResponseEntity.ok(response);
     }
-//    // Tìm phim theo năm phát hành
-//    @GetMapping(ApiPath.FILM_API_URL + "/search/year")
-//    public ResponseEntity<Page<Film>> findByReleaseYear(
-//            @RequestParam Integer releaseYear,
-//            @RequestParam(defaultValue = "0") int page,
-//            @RequestParam(defaultValue = "10") int size) {
-//
-//        Pageable pageable = PageRequest.of(page, size);
-//        Page<Film> films = filmElasticRepository.findByReleaseYear(releaseYear, pageable);
-//        return ResponseEntity.ok(films);
-//    }
-//
-//    // Tìm phim theo trạng thái
-//    @GetMapping(ApiPath.FILM_API_URL + "/search/status")
-//    public ResponseEntity<Page<Film>> findByStatus(
-//            @RequestParam String status,
-//            @RequestParam(defaultValue = "0") int page,
-//            @RequestParam(defaultValue = "10") int size) {
-//
-//        Pageable pageable = PageRequest.of(page, size);
-//        Page<Film> films = filmElasticRepository.findByStatus(status, pageable);
-//        return ResponseEntity.ok(films);
-//    }
-//
-//    // Tìm phim theo quốc gia sản xuất
-//    @GetMapping(ApiPath.FILM_API_URL + "/search/country")
-//    public ResponseEntity<Page<Film>> findByCountry(
-//            @RequestParam String country,
-//            @RequestParam(defaultValue = "0") int page,
-//            @RequestParam(defaultValue = "10") int size) {
-//
-//        Pageable pageable = PageRequest.of(page, size);
-//        Page<Film> films = filmElasticRepository.findByCountry(country, pageable);
-//        return ResponseEntity.ok(films);
-//    }
 }
