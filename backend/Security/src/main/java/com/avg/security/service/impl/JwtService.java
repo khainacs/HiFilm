@@ -15,11 +15,13 @@ import org.springframework.util.StringUtils;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 
 /*
-* @author: khainacs
-* */
+ * @author: khainacs
+ * */
 @Slf4j
 @Service
 public class JwtService {
@@ -44,6 +46,45 @@ public class JwtService {
         if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer "))
         {return bearerToken.substring(7,bearerToken.length()); } // The part after "Bearer "
         return null;
+    }
+
+    public String generateToken(UserDetails userDetails) {
+        return generateToken(new HashMap<>(), userDetails);
+    }
+
+    public String generateToken(UserDetails userDetails, boolean rememberMe) {
+        return generateToken(new HashMap<>(), userDetails, rememberMe);
+    }
+
+    public String generateToken(
+            Map<String, Object> extraClaims,
+            UserDetails userDetails
+    ) {
+        return buildToken(extraClaims, userDetails, JWT_EXPIRATION);
+    }
+
+    public String generateToken(
+            Map<String, Object> extraClaims,
+            UserDetails userDetails, boolean rememberMe
+    ) {
+        if (rememberMe) {
+            return buildToken(extraClaims, userDetails, JWT_EXPIRATION * 7);
+        }
+        return buildToken(extraClaims, userDetails, JWT_EXPIRATION);
+    }
+    private String buildToken(
+            Map<String, Object> extraClaims,
+            UserDetails userDetails,
+            long expiration
+    ) {
+        return Jwts
+                .builder()
+                .setClaims(extraClaims)
+                .setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+                .compact();
     }
 
     public String generateRefreshToken(User user){
@@ -122,17 +163,17 @@ public class JwtService {
                 .getPayload();
     }
 
-   private SecretKey getSignInKey(){
+    private SecretKey getSignInKey(){
         byte[] keyBytes = Decoders.BASE64.decode(JWT_SECRET);
         return Keys.hmacShaKeyFor(keyBytes);
-   }
+    }
 
-   public boolean validateToken(String token){
+    public boolean validateToken(String token){
         try{
             Jwts.parser()
-                .verifyWith(getSignInKey())
-                .build()
-                .parseSignedClaims(token);
+                    .verifyWith(getSignInKey())
+                    .build()
+                    .parseSignedClaims(token);
             return true;
         } catch (SignatureException e) {
             log.info("Invalid JWT signature.");
@@ -151,5 +192,5 @@ public class JwtService {
             log.trace("JWT token compact of handler are invalid trace: {}", e);
         }
         return false;
-   }
+    }
 }
