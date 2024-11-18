@@ -69,4 +69,28 @@ public class MailServiceImpl implements MailService {
 
         mailSender.send(mineMessage);
     }
+    @Override
+    public void sendEmailRegisterWithPassword(String email, String name, String password) throws MessagingException {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+
+        mimeMessageHelper.setTo(email);
+        mimeMessageHelper.setSubject("Login Successful");
+
+        Context thymeleafContext = new Context();
+
+        String title = "Congratulations on your Successful Login!!! ";
+        String message = "Thank you for logging in with us. Your account has been successfully logged in and is now ready to use. We are delighted to have you on board and look forward to providing you with the best experience. Your Password is: `" + password + "`; Please login now by clicking the button below.";
+        String url = this.url + "/login";
+
+        thymeleafContext.setVariable("title", title);
+        thymeleafContext.setVariable("message", message);
+        thymeleafContext.setVariable("url", url);
+        thymeleafContext.setVariable("textBtn", "Login Now");
+
+        String htmlBody = templateEngine.process("mail-template", thymeleafContext);
+        mimeMessageHelper.setText(htmlBody, true);
+
+        mailSender.send(mimeMessage);
+    }
 }
