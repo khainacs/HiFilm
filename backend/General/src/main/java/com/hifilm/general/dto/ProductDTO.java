@@ -8,13 +8,10 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductDTO {
-    private String title;
-
-    private String description;
-
-    private Integer rating;
-
-    private long product_detail_id;
-
-    private long category_id;
+        private long id;
+        private String title;
+        private String description;
+        private Integer rating;
+        private long product_detail_id;
+        private long category_id;
 }

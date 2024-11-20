@@ -126,8 +126,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             return UserResponseDTO.builder().tokenType(AuthenCode.ACCOUNT_NOT_ACTIVATED).build();
         }
 
-        String accessToken = jwtService.generateToken(user);
-        String refreshToken = jwtService.generateRefreshToken(user);
+        String accessToken = jwtService.generateToken(customUserDetail);
+        String refreshToken = jwtService.generateRefreshToken(customUserDetail);
 
         return UserResponseDTO
                 .builder()

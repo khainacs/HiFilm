@@ -4,9 +4,11 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.Collection;
 import java.util.List;
@@ -14,30 +16,19 @@ import java.util.Map;
 
 @Data
 @Getter
-@Setter
-public class CustomUserDetail implements UserDetails {
-    private static final Logger log = org.slf4j.LoggerFactory.getLogger(CustomUserDetail.class);
+public class CustomUserDetail implements OAuth2User ,UserDetails {
+    private static final Logger log = LoggerFactory.getLogger(CustomUserDetail.class);
     private User user;
-    private Role role;
+    @Setter
     private Map<String, Object> attributes;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().getName()));
-    }
 
     public CustomUserDetail(User user) {
         this.user = user;
     }
 
-    public CustomUserDetail(User user, Role role) {
-        this.user = user;
-        this.role = role;
-    }
-
-    public CustomUserDetail(User user, Map<String, Object> attributes) {
-        this.user = user;
-        this.attributes = attributes != null ? attributes : Map.of();
+    @Override
+    public boolean isEnabled() {
+        return user.isActive();
     }
 
     @Override
@@ -49,6 +40,8 @@ public class CustomUserDetail implements UserDetails {
     public String getUsername() {
         return user.getEmail();
     }
+
+    // extend
 
     @Override
     public boolean isAccountNonExpired() {
@@ -66,7 +59,22 @@ public class CustomUserDetail implements UserDetails {
     }
 
     @Override
-    public boolean isEnabled() {
-        return user.isActive();
+    public Map<String, Object> getAttributes() {
+        return attributes;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().getName()));
+    }
+
+    @Override
+    public String getName() {
+        return user.getId();
+    }
+
+    public CustomUserDetail(User user, Map<String, Object> attributes) {
+        this.user = user;
+        this.attributes = attributes;
     }
 }

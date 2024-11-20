@@ -1,7 +1,7 @@
-package com.avg.security.handler;
+package com.avg.security.o2auth.handler;
 
-import com.avg.security.HttpCookieOAuth2AuthorizationRequestRepository;
-import com.avg.security.utils.CookieUtils;
+import com.avg.security.o2auth.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.avg.security.o2auth.utils.CookieUtils;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,7 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 
-import static com.avg.security.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
+import static com.avg.security.o2auth.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
 
 @Component
 public class OAuth2AuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {

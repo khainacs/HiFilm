@@ -16,7 +16,7 @@ import java.util.List;
 public class ProductDetail extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_detail_id")
+    @Column(name = "productDetailId")
     long id;
 
     @Column(name = "title")
@@ -35,6 +35,6 @@ public class ProductDetail extends BaseEntity{
     List<Image> images;
 
     @OneToOne(mappedBy = "productDetail")
-    @JoinColumn(name = "movie_id", referencedColumnName = "id")
+    @JoinColumn(name = "movieId", referencedColumnName = "id")
     Movie movie;
 }

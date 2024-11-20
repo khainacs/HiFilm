@@ -27,7 +27,7 @@ public class Film {
 
     @Field(type = FieldType.Text, name = "releaseYear")
     private Integer releaseYear;
-
+        
     @Field(type = FieldType.Text, name = "director")
     private String director;
 

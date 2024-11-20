@@ -1,4 +1,4 @@
-package com.avg.security.exception;
+package com.avg.security.o2auth.exceptions;
 
 import org.springframework.security.core.AuthenticationException;
 

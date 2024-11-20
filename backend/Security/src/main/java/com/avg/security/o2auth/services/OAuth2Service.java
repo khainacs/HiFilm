@@ -1,11 +1,14 @@
-package com.avg.security.service.impl;
+package com.avg.security.o2auth.services;
 
 import com.avg.security.entities.*;
-import com.avg.security.exception.OAuth2AuthenticationProcessingException;
+import com.avg.security.o2auth.entities.OAuth2UserInfo;
+import com.avg.security.o2auth.exceptions.OAuth2AuthenticationProcessingException;
+import com.avg.security.o2auth.entities.OAuth2UserInfoFactory;
 import com.avg.security.repository.RoleRepository;
 import com.avg.security.repository.UserRepository;
 import com.avg.security.service.MailService;
 import com.avg.security.service.TokenService;
+import com.avg.security.service.impl.JwtService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -57,26 +60,22 @@ public class OAuth2Service extends DefaultOAuth2UserService{
     }
 
     private OAuth2User processOAuth2User(OAuth2UserRequest oAuth2UserRequest, OAuth2User oAuth2User) {
-        Oauth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(
-                oAuth2UserRequest.getClientRegistration().getRegistrationId(),
-                oAuth2User.getAttributes()
-        );
+        OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory
+                        .getOAuth2UserInfo(oAuth2UserRequest.getClientRegistration()
+                        .getRegistrationId(), oAuth2User.getAttributes());
 
-        if (StringUtils.isEmpty(oAuth2UserInfo.getEmail())) {
+        if(StringUtils.isEmpty(oAuth2UserInfo.getEmail())) {
             throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
         }
 
         Optional<User> userOptional = userRepository.findByEmail(oAuth2UserInfo.getEmail());
-        User user = userOptional.orElseGet(() -> registerNewUser(oAuth2UserInfo));
+        User user;
+        user = userOptional.orElseGet(() -> registerNewUser(oAuth2UserInfo));
 
-        // Truyền cả user và role để giữ nguyên constructor
-        Role role = user.getRole();
-        CustomUserDetail customUserDetail = new CustomUserDetail(user, role);
-        customUserDetail.setAttributes(oAuth2User.getAttributes());
-        return (OAuth2User) customUserDetail;
+        return new CustomUserDetail(user, oAuth2User.getAttributes());
     }
 
-    private User registerNewUser(Oauth2UserInfo oAuth2UserInfo) {
+    private User registerNewUser(OAuth2UserInfo oAuth2UserInfo) {
         String email = oAuth2UserInfo.getEmail();
         String fullName = oAuth2UserInfo.getName();
 

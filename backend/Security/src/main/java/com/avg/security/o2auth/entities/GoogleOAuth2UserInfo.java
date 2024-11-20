@@ -1,8 +1,8 @@
-package com.avg.security.entities;
+package com.avg.security.o2auth.entities;
 
 import java.util.Map;
 
-public class GoogleOAuth2UserInfo extends Oauth2UserInfo {
+public class GoogleOAuth2UserInfo extends OAuth2UserInfo {
     public GoogleOAuth2UserInfo(Map<String, Object> attributes) {
         super(attributes);
     }
@@ -20,5 +20,10 @@ public class GoogleOAuth2UserInfo extends Oauth2UserInfo {
     @Override
     public String getEmail() {
         return (String) attributes.get("email");
+    }
+
+    @Override
+    public String getImageUrl() {
+        return (String) attributes.get("picture");
     }
 }

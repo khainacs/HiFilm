@@ -1,4 +1,4 @@
-package com.avg.security.utils;
+package com.avg.security.o2auth.utils;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;

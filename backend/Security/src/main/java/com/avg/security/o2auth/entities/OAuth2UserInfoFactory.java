@@ -1,13 +1,13 @@
-package com.avg.security.entities;
+package com.avg.security.o2auth.entities;
 
-import com.avg.security.Enum.AuthProvider;
-import com.avg.security.exception.OAuth2AuthenticationProcessingException;
+import com.avg.security.o2auth.enums.AuthProvider;
+import com.avg.security.o2auth.exceptions.OAuth2AuthenticationProcessingException;
 
 import java.util.Map;
 
 public class OAuth2UserInfoFactory {
 
-    public static Oauth2UserInfo getOAuth2UserInfo(String registrationId, Map<String, Object> attributes) {
+    public static OAuth2UserInfo getOAuth2UserInfo(String registrationId, Map<String, Object> attributes) {
         if(registrationId.equalsIgnoreCase(AuthProvider.google.toString())) {
             return new GoogleOAuth2UserInfo(attributes);
         }else if (registrationId.equalsIgnoreCase(AuthProvider.github.toString())) {

@@ -1,6 +1,8 @@
 package com.hifilm.general.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -17,17 +19,21 @@ public class Image extends BaseEntity{
     @Column(name = "image_id")
     long id;
 
+    @NotBlank(message = "Name cannot blank")
+    @Size(max = 255, message = "Name must be at most 255 character")
     @Column(name = "name")
     String name;
 
-    @Column(name = "path")
+    @NotBlank(message = "Path cannot be blank")
+    @Size(max = 500, message = "Path must be at most 500 character")
+    @Column(name = "path", length = 500)
     String path;
 
+    @Size(max = 255, message = "Alt text must be at most 255 characters")
     @Column(name = "alt")
     String alt;
 
-    @ManyToOne
-    @JoinColumn(name = "product_detail_id", referencedColumnName = "product_detail_id")
-    ProductDetail productDetail;
+    @OneToOne(mappedBy = "image")
+    ImageDetail imageDetail;
 
 }

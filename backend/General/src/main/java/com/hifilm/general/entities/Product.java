@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -26,10 +28,13 @@ public class Product extends BaseEntity{
     int rating;
 
     @OneToOne(mappedBy = "product")
-    @JoinColumn(name = "product_detail_id", referencedColumnName = "product_detail_id")
+    @JoinColumn(name = "productDetailId", referencedColumnName = "productDetailId")
     ProductDetail productDetail;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    @JoinColumn(name = "categoryId", referencedColumnName = "id")
     Category category;
+
+    @OneToMany(mappedBy = "product")
+    List<ImageDetail> imageDetail;
 }

@@ -10,9 +10,8 @@ import java.util.Date;
 @EqualsAndHashCode
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MovieDTO {
+    private long id;
     private String path;
-
     private Date last_time;
-
     private long product_detail_id;
 }

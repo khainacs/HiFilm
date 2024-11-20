@@ -1,5 +1,6 @@
 package com.avg.security.service.impl;
 
+import com.avg.security.entities.CustomUserDetail;
 import com.avg.security.entities.User;
 import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.*;
@@ -87,16 +88,10 @@ public class JwtService {
                 .compact();
     }
 
-    public String generateRefreshToken(User user){
-        String token = Jwts
-                .builder()
-                .setSubject(user.getEmail())
-                .claim("role", user.getRole())
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + JWT_REFRESH_EXPIRATION))
-                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
-                .compact();
-        return token;
+    public String generateRefreshToken(
+            UserDetails userDetails
+    ) {
+        return buildToken(new HashMap<>(), userDetails, JWT_REFRESH_EXPIRATION);
     }
 
     /**

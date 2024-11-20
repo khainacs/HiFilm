@@ -1,11 +1,11 @@
-package com.avg.security.handler;
+package com.avg.security.o2auth.handler;
 
-import com.avg.security.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.avg.security.o2auth.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.avg.security.entities.CustomUserDetail;
 import com.avg.security.entities.User;
 import com.avg.security.service.TokenService;
 import com.avg.security.service.impl.JwtService;
-import com.avg.security.utils.CookieUtils;
+import com.avg.security.o2auth.utils.CookieUtils;
 import io.github.cdimascio.dotenv.Dotenv;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -22,24 +22,28 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Optional;
 
-import static com.avg.security.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
+import static com.avg.security.o2auth.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
 
 @Component
-public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
+public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+
     private final JwtService jwtService;
     private final HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
     private final TokenService tokenService;
 
     @Autowired
     public OAuth2AuthenticationSuccessHandler(JwtService jwtService,
-                                              HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository, TokenService tokenService) {
+                                              HttpCookieOAuth2AuthorizationRequestRepository
+                                                      httpCookieOAuth2AuthorizationRequestRepository,
+                                              TokenService tokenService) {
         this.jwtService = jwtService;
         this.httpCookieOAuth2AuthorizationRequestRepository = httpCookieOAuth2AuthorizationRequestRepository;
         this.tokenService = tokenService;
     }
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response
+                                    , Authentication authentication) throws IOException, ServletException {
         String targetUrl = determineTargetUrl(request, response, authentication);
 
         if (response.isCommitted()) {
@@ -51,13 +55,15 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }
 
-    protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+    protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response
+                                                                    , Authentication authentication) {
         Optional<String> redirectUri = CookieUtils.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
                 .map(Cookie::getValue);
 
-        if (redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {
+        if(redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {
             try {
-                throw new BadRequestException("Sorry! We've got an Unauthorized Redirect URI and can't proceed with the authentication");
+                throw new BadRequestException("Sorry! We've got an Unauthorized Redirect" +
+                        "  URI and can't proceed with the authentication");
             } catch (BadRequestException e) {
                 throw new RuntimeException(e);
             }
@@ -68,19 +74,16 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         CustomUserDetail customUserDetail = (CustomUserDetail) authentication.getPrincipal();
         User user = customUserDetail.getUser();
 
-        // Generate token with rememberMe set to true
         var jwtToken = jwtService.generateToken(customUserDetail, true);
-        var refreshToken = jwtService.generateRefreshToken(user);
+        var refreshToken = jwtService.generateRefreshToken(customUserDetail);
 
-        // Save the token and revoke old ones
         tokenService.revokedAllUserTokens(user);
-        tokenService.saveUserToken(user, jwtToken);
+        tokenService.saveUserToken(user,jwtToken);
 
         return UriComponentsBuilder.fromUriString(targetUrl)
                 .queryParam("token", jwtToken)
                 .build().toUriString();
     }
-
 
     protected void clearAuthenticationAttributes(HttpServletRequest request, HttpServletResponse response) {
         super.clearAuthenticationAttributes(request);
