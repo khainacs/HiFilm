@@ -136,10 +136,10 @@ export default function Navbar() {
                     </div>
                     <div className="relative">
                     
-                        <button className="border-2 border-Bright-Pink-300 border-solid hover:bg-Soft-Purple-500
+                        <a href="/login" className="border-2 border-Bright-Pink-300 border-solid hover:bg-Soft-Purple-500
                                             text-white font-bold text-xs py-1 px-3 rounded-xl hover:border-Soft-Purple-500">
                             Đăng Nhập
-                        </button>
+                        </a>
                     </div>  
                     {/* Mobile Menu */}
                     <div className={`md:hidden fixed top-0 left-0 w-full h-full bg-[#252631] transition-transform transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} z-20`}>

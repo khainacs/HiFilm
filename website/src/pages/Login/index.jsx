@@ -13,7 +13,7 @@ export default function Login(props) {
     }, [title]);
 
     return (
-        <main className="min-h-screen flex items-center justify-center bg-gray-100">
+        <main className="container">
             <FormLogin />
         </main>
     );

@@ -4,14 +4,14 @@ import { CircularProgress } from "@mui/material";
 import loadable from "@loadable/component";
 import AuthLayout from "./layouts/AuthLayout";
 import BasicLayout from "./layouts/BasicLayout";
-import BlankLayout from "./layouts/BlankLayout";
+import BlankLayout from "./layouts/LayoutNotSearch";
 
-const Login = loadable(() => import("./pages/Login"));
+const Login = loadable(() => import("./pages/Auth/Login"));
 const Home = loadable(() => import("./pages/Home"));
 const ForgotPassword = loadable(() => import("./pages/Forgotpassword/index"));
 const EditInformation = loadable(() => import("./pages/EditInformation/index"));
 const MailForm = loadable(() => import("./pages/MailForm/index"));
-const Regiter = loadable(() => import("./pages/Register/index"));
+const Regiter = loadable(() => import("./pages/Auth/Register"));
 const MovieDetail = loadable(() => import("./pages/MovieDetail/index"));
 const Movie = loadable(()=> import("./pages/Movies"));
 const About = loadable(()=> import("./pages/About/index"))
@@ -27,27 +27,25 @@ export default function App() {
                         index
                         element={
                             <Suspense fallback={<CircularProgress />}>
-                                <Home title="Trang Chủ" />
+                                <Home title="Home Page" />
                             </Suspense>
                         }
                     />
                 </Route>
                 <Route element={<BlankLayout />}>
                     <Route
-                        path="/dang-nhap"
+                        path="/login"
                         element={
                             <Suspense fallback={<CircularProgress />}>
-                                <Login title="Đăng nhập" />
+                                <Login title="Login Page" />
                             </Suspense>
                         }
                     />
-                </Route>
-                <Route element={<BlankLayout />}>
                     <Route
-                        path="/dang-ky"
+                        path="/register"
                         element={
                             <Suspense fallback={<CircularProgress />}>
-                                <Regiter title="Đăng ký" />
+                                <Regiter title="Register Page" />
                             </Suspense>
                         }
                     />

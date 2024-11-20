@@ -77,7 +77,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if (userRepository.findByEmail(userDTO.getEmail()).isPresent()){
             return UserResponseDTO.builder().tokenType(AuthenCode.EMAIL_ALREADY_REGISTERED).build();
         }
-        Optional<Role> role = roleRepository.findById(userDTO.getRole());
+        Optional<Role> role = roleRepository.findByName(userDTO.getName());
 
         User user = new User();
         user.setActive(false);

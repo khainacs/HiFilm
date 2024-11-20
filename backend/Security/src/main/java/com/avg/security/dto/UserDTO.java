@@ -23,5 +23,5 @@ public class UserDTO extends BaseObject{
 
     boolean rememberMe;
 
-    private int role;
+    private String roleName;
 }

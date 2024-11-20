@@ -18,6 +18,13 @@ export const validatePassword = (password) => {
     }
 };
 
+export const validateRePassword = (password, repassword) => {
+    if(password != repassword){
+        return "Password and Repassword do not match";
+    }
+    return "";
+}
+
 export const validateFullName = (fullName) => {
     if(!fullName.trim()){
         return "full name is required";
