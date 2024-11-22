@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --background-navabar: url('./assets/img/Banner/HarryPotter.png');
+}
+body::-webkit-scrollbar {
+    width: 12px;
+}
+
+body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 6px;
+    border: 3px solid #f1f1f1;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* Custom CSS to hide scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+@font-face {
+    font-family: 'NunitoSans';
+    src: url('/src/assets/fonts/NunitoSans-Regular.woff') format('woff'),
+         url('/src/assets/fonts/NunitoSans-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'NunitoSans';
+    src: url('/src/assets/fonts/NunitoSans-Bold.woff') format('woff'),
+         url('/src/assets/fonts/NunitoSans-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+  }
+  

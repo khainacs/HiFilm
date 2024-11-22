@@ -1,0 +1,33 @@
+server:
+  port: 9003
+
+spring:
+  application:
+    name: general-service
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  logging:
+    level:
+      org:
+        hibernate: ERROR
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
+# Springdoc configuration
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
