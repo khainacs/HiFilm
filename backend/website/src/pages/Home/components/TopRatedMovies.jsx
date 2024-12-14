@@ -45,7 +45,7 @@ const MovieCard = ({ src, title, genre, rating, subtitle }) => {
   };
 
   return (
-    <div className="w-full sm:w-52 h-auto sm:h-[450px] bg-gray-900 rounded-lg overflow-hidden shadow-lg border-4 sm:border-8 border-transparent flex flex-col">
+    <div className="w-full sm:w-52 h-auto sm:h-[450px] bg-slate-800  rounded-lg overflow-hidden shadow-lg border-4 sm:border-8 border-transparent flex flex-col">
       <div className="relative flex-grow">
         <img src={src} alt="Movie Poster" className="w-full h-full object-cover" />
       </div>
@@ -113,7 +113,7 @@ const NewReleaseMovie = () => {
    
   
     return (
-      <div className="min-h-screen w-full bg-Dark-Blue-900 flex justify-center items-center p-4 sm:p-8">
+      <div className="min-h-screen w-full bg-[#0B192C] flex justify-center items-center p-4 sm:p-8">
         <div className="w-full max-w-7xl flex flex-col items-center">
           <div className="w-full flex justify-center mb-6 sm:mb-10">
             <LineUnder>Top Online Show Match</LineUnder>
@@ -128,9 +128,9 @@ const NewReleaseMovie = () => {
             ))}
           </div>
           <div className="w-full flex justify-center items-center mt-6 sm:mt-8">
-            <button className="relative flex h-10 sm:h-[55px] w-40 sm:w-52 items-center justify-center overflow-hidden bg-Bright-Pink-500 text-white
-              shadow-2xl transition-all before:absolute before:h-0 before:w-0 before:rounded-full before:bg-Vibrant-Purple-500
-              before:duration-500 before:ease-out hover:shadow-Vibrant-Purple-500 hover:before:h-40 sm:hover:before:h-56 hover:before:w-40 sm:hover:before:w-56 rounded-3xl text-xs sm:text-base font-bold">
+            <button className="relative flex h-10 sm:h-[55px] w-40 sm:w-52 items-center justify-center overflow-hidden text-white font-nunito bg-slate-700
+              shadow-2xl transition-all before:absolute before:h-0 before:w-0 before:rounded-full before:bg-wine-red-600 
+              before:duration-500 before:ease-out hover:shadow-slate-700 hover:before:h-40 sm:hover:before:h-56 hover:before:w-40 sm:hover:before:w-56 rounded-3xl sm:text-base font-bold">
               <span className="relative z-10">BROWSE ALL MOVIES</span>
             </button>
           </div>

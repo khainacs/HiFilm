@@ -9,9 +9,9 @@ export const FormForgotPassword = () => {
     return (
         <div className="flex flex-col md:flex-row justify-between items-center w-full h-auto box-border">
             {/* Hình ảnh minh họa */}
-            <div className="flex justify-center items-center max-w-sm md:w-1/2 mb-8 md:mb-0">
+            <div className="flex justify-center items-center max-w-sm md:w-1/2 mb-8 md:mb-0 animate-slide-down">
                 <img
-                    className="w-[150px] h-[240px] md:w-[292px] md:h-[350px]"
+                    className="w-[150px] h-[240px] md:w-[292px] md:h-[350px] animate-fade-in"
                     src="./src/assets/img/Forgotpassword/Figure → signin-image.jpg.png"
                     alt="Forgot password illustration"
                 />

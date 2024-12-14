@@ -88,27 +88,26 @@ export default function Banner() {
     return (
         <div
             className="relative bg-contain bg-center mt-10 transition-all duration-500 ease-in-out"
-            style={{ backgroundImage: movieData.background }}
-        >
+            style={{ backgroundImage: movieData.background }}>
             {/* Lớp overlay */}
             <div className="absolute inset-0 bg-black opacity-60 backdrop-blur-sm transition-opacity duration-500 ease-in-out"></div>
 
             {/* Nội dung */}
             <div className="relative z-10 py-12 md:py-24">
                 <div className="container px-4 mx-auto">
-                    <div className="flex flex-col-reverse items-center md:flex-row md:items-start md:space-x-8">
+                    <div className="flex flex-col-reverse items-center md:flex-row md:items-start md:space-x-8 font-nunito font-bold">
                         <div className="w-full mt-8 md:mt-0 md:w-1/2 text-center md:text-left">
-                            <h2 className="font-bold text-Vibrant-Purple-300 text-xl md:text-2xl mb-2">
+                            <h2 className=" md:text-2xl mb-2 text-blue-400">
                                 {movieData.title}
                             </h2>
-                            <h1 className="mb-4 text-2xl font-bold leading-tight text-white md:text-4xl lg:text-5xl">
+                            <h1 className="mb-4 text-[14px] leading-tight text-navy-blue-600 md:text-4xl lg:text-5xl">
                                 {movieData.subtitle}
                             </h1>
-                            <div className="flex flex-wrap justify-center md:justify-start items-center mb-4 space-x-2 space-y-2 md:space-y-0">
-                                <span className="bg-white text-gray-900 text-xs font-semibold px-2 py-1">
+                            <div className="flex flex-wrap justify-center md:justify-start items-center mb-4 space-x-2 space-y-2 md:space-y-0 text-white">
+                                <span className="bg-navy-red-700 text-[10px] px-2 py-1 rounded">
                                     PG 18
                                 </span>
-                                <span className="bg-gray-800 text-white text-xs font-semibold px-2 py-1 border-solid border">
+                                <span className="bg-navy-red-700 text-[10px] px-2 py-1 rounded">
                                     HD
                                 </span>
                                 <span className="text-white text-sm">
@@ -143,9 +142,9 @@ export default function Banner() {
                             </div>
                             <div className="mt-6">
                                 <button
-                                    className="before:ease rounded-lg relative h-12 w-full md:w-48 overflow-hidden border border-Vibrant-Purple-300 text-Vibrant-Purple-300 shadow-2xl 
+                                    className="before:ease rounded-lg relative h-12 w-full md:w-48 overflow-hidden border border-Vibrant-Purple-300 text-slate-300 shadow-2xl 
                   transition-all before:absolute before:top-1/2 before:h-0 before:w-64 before:origin-center before:-translate-x-20
-                  before:rotate-45 before:bg-Vibrant-Purple-400 before:duration-300 hover:text-white hover:font-bold hover:shadow-blue-500 hover:before:h-64
+                  before:rotate-45 before:bg-slate-500 before:duration-300 hover:text-white hover:font-bold hover:shadow-blue-500 hover:before:h-64
                   hover:before:-translate-y-32"
                                 >
                                     <span className="relative z-10 flex items-center justify-center">

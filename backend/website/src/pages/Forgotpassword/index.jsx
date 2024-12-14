@@ -13,8 +13,8 @@ export default function Forgotpassword(props) {
     }, [title]);
 
     return (
-        <div className="min-h-screen flex flex-col justify-center items-center bg-gray-200 py-4">
-            <div className="w-full max-w-4xl mx-auto p-10 bg-white rounded-lg shadow-lg flex justify-center gap-12 mb-4">
+        <div className="min-h-screen flex flex-col justify-center items-center py-4 bg-custom-gradient animate-gradient-move from-dark-blue-600 bg-[length:200%_200%">
+            <div className="w-full max-w-4xl mx-auto p-10 rounded-lg flex justify-center gap-12 mb-4 ">
                 <FormForgotPassword />
             </div>
         </div>

@@ -17,9 +17,9 @@ export default function SiderBar(){
       ];
     
     return (
-      <div className="2xl:container flex flex-col border-white bg-[#121212] p-4">
+      <div className="2xl:container flex flex-col border-white p-4 font-nunito">
         {/* Header */}
-        <h3 className="text-white text-lg font-medium mb-4">PHIM BỘ HOT</h3>
+        <h3 className="text-white text-lg  font-bold mb-4">PHIM BỘ HOT</h3>
         
         {/* Movies Grid */}
         <div className="grid gap-4">

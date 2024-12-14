@@ -39,7 +39,7 @@ import LineUnder from "../components/LineUnder";
 const MovieCard = ({ src, title, genre, rating, subtitle }) => {
   const renderStars = (rating) => {
     if (rating === 0) {
-      return <span className="text-white text-base font-mono">Upcoming Soon</span>; 
+      return <span className="text-white text-base ">Upcoming Soon</span>; 
     }
 
     const stars = [];
@@ -66,7 +66,7 @@ const MovieCard = ({ src, title, genre, rating, subtitle }) => {
   };
 
   return (
-    <div className="w-full lg:w-52 h-auto sm:h-[450px] bg-gray-900 rounded-lg overflow-hidden shadow-lg border-4 sm:border-8 border-transparent flex flex-col">
+    <div className="w-full lg:w-52 h-auto sm:h-[450px] bg-slate-800 rounded-lg overflow-hidden shadow-lg border-4 sm:border-8 border-transparent flex flex-col">
       <div className="relative flex-grow">
         <img src={src} alt="Movie Poster" className="w-full h-full object-cover" />
       </div>
@@ -98,9 +98,9 @@ const Button = ({ children, onClick, isActive }) => (
   <button 
   type="button" 
   onClick={onClick} 
-  className={`h-10 px-4 sm:px-6 font-semibold text-xs text-white rounded-full border-gray-700 border-4 shadow-lg
-              ${isActive ? 'bg-Bright-Pink-500 border-Bright-Pink-500' : 'bg-gray-800'} 
-              hover:bg-Bright-Pink-500 transition-colors`}
+  className={`h-10 px-6 py-2 border border-bg-slate-800 font-nunito font-bold text-white rounded-full shadow-lg
+              ${isActive ? 'bg-slate-700' : ''} 
+              hover:bg-slate-800`}
 >
   {children}
 </button>
@@ -178,14 +178,14 @@ const NewReleaseMovie = () => {
 
 
     return (
-      <div className="min-h-screen w-full bg-Dark-Blue-900 flex justify-center items-center p-4 sm:p-6 md:p-8">
+      <div className="min-h-screen w-full bg-[#0B192C] flex justify-center items-center p-4 sm:p-6 md:p-8">
         <div className="w-full max-w-7xl flex flex-col">
-          <div className="w-full flex flex-col sm:flex-row justify-between items-center mb-6 space-y-4 sm:space-y-0">
+          <div className="w-full flex flex-col sm:flex-row justify-between items-center mb-6 space-y-4 sm:space-y-0 ">
             <div className="w-full sm:w-auto text-center sm:text-left">
               <LineUnder>New Release Movies</LineUnder>
             </div>
-            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-2 w-full sm:w-auto">
-              <div className="flex flex-wrap justify-center sm:justify-start gap-2 w-full sm:w-auto mb-4 sm:mb-0">
+            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-2 w-full sm:w-auto font-nunito text-[14px]">
+              <div className="flex flex-wrap justify-center sm:justify-start gap-2 w-full sm:w-auto">
                 <Button 
                   onClick={() => handleCategoryChange('latest')} 
                   isActive={activeCategory === 'latest'}
@@ -207,14 +207,14 @@ const NewReleaseMovie = () => {
               </div>
               <div className="flex items-center mt-4 sm:mt-0 border-2 rounded-full border-gray-600 relative">
                 <button
-                  className="h-8 px-4 text-white bg-gray-800 rounded-l-full hover:text-Bright-Pink-500"
+                  className="h-8 px-4 text-white bg-gray-800 rounded-l-full hover:bg-slate-500"
                   onClick={() => sliderRef.current.slickPrev()}
                 >
                   <FontAwesomeIcon icon={faCaretLeft} />
                 </button>
                 <hr className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-2 h-5 border-[1px] border-gray-600 z-10" />
                 <button
-                  className="h-8 px-4 text-white bg-gray-800 rounded-r-full hover:text-Bright-Pink-500"
+                  className="h-8 px-4 text-white bg-gray-800 rounded-r-full hover:bg-slate-500"
                   onClick={() => sliderRef.current.slickNext()}
                 >
                   <FontAwesomeIcon icon={faCaretRight} />
@@ -223,7 +223,7 @@ const NewReleaseMovie = () => {
             </div>
           </div>
   
-          <div className="rounded-lg p-2 sm:p-4 md:p-6">
+          <div className="rounded-lg p-2 sm:p-4 md:p-6 font-nunito font-bold">
             <Slider ref={sliderRef} {...settings}>
               {movieData[category].map((movie, index) => (
                 <div key={index} className="px-4">
