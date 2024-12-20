@@ -7,7 +7,7 @@ import Pagination from '../components/Pagination';
 import { ITEMS_PER_PAGE } from "../../../util/constants";
 
 const ListProducts = ({ title }) => {
-  const pseudoImg = "https://via.placeholder.com/280x420";
+  const pseudoImg = "https://via.placeholder.com/300x420";
   
   // Generate fake movie data
   const movies = Array.from({ length: 50 }, (_, index) => ({

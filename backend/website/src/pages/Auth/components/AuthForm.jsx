@@ -14,15 +14,15 @@ const AuthForm = ({ handleSubmit, email, setEmail, password, setPassword, rePass
     let btnText = "";
 
     if (type === "login") {
-        btnText = "Login";
+        btnText = "Đăng Nhập";
     } else if (type === "register") {
-        btnText = "Register";
+        btnText = "Đăng Kí";
     } else if (type === "forgotPassword") {
-        btnText = "Submit";
+        btnText = "Gửi Đi";
     } else if (type === "changePassword") {
-        btnText = "Change password";
+        btnText = "Đổi mật khẩu";
     } else {
-        btnText = "Submit";
+        btnText = "Gửi đi";
     }
     return (
         <form onSubmit={handleSubmit} className="space-y-1">
@@ -41,7 +41,7 @@ const AuthForm = ({ handleSubmit, email, setEmail, password, setPassword, rePass
             )}
             {password !== undefined && (
                 <FormInput
-                    label="Password"
+                    label="Mật khẩu"
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -50,7 +50,7 @@ const AuthForm = ({ handleSubmit, email, setEmail, password, setPassword, rePass
             )}
             {showRePassword && rePassword !== undefined && password !== undefined &&(
                 <FormInput
-                    label="Confirm Passwordsssss"
+                    label="Xác nhận lại mật khẩu"
                     type="password"
                     value={rePassword}
                     onChange={(e) => setRePassword(e.target.value)}
@@ -61,10 +61,10 @@ const AuthForm = ({ handleSubmit, email, setEmail, password, setPassword, rePass
                 <div className="flex items-center justify-between text-white">
                     <FormControlLabel
                         control={<Checkbox checked={remember} onChange={(e) => setRemember(e.target.checked)} />}
-                        label="Remember me"
+                        label="Ghi nhớ tôi"
                     />
-                    <a href="/forgot-password" className="font-semibold hover:text-primar">
-                        Forgot Password?
+                    <a href="/quan-mat-khau" className="font-semibold hover:text-purple-600">
+                        Quên mật khẩu?
                     </a>
                 </div>
             )}

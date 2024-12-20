@@ -11,7 +11,7 @@ export default function BasicLayout(){
         setSearchResult(results);
     }
 
-    return Cookies.get(StorageKeys.ACCESS_TOKEN) && (location.pathname ==="/login" || location.pathname === "/register") ? (
+    return Cookies.get(StorageKeys.ACCESS_TOKEN) && (location.pathname ==="/dang-nhap" || location.pathname === "/dang-ki") ? (
         <Navigate to="/" replace />
     ) : (
         <div className="flex flex-col min-h-screen">

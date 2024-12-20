@@ -27,32 +27,32 @@ export default function App() {
                         index
                         element={
                             <Suspense fallback={<CircularProgress />}>
-                                <Home title="Home Page" />
+                                <Home title="Trang Chủ" />
                             </Suspense>
                         }
                     />
                 </Route>
                 <Route element={<BlankLayout />}>
                     <Route
-                        path="/login"
+                        path="/dang-nhap"
                         element={
                             <Suspense fallback={<CircularProgress />}>
-                                <Login title="Login Page" />
+                                <Login title="Đăng Nhập" />
                             </Suspense>
                         }
                     />
                     <Route
-                        path="/register"
+                        path="/dang-ki"
                         element={
                             <Suspense fallback={<CircularProgress />}>
-                                <Regiter title="Register Page" />
+                                <Regiter title="Đăng Kí" />
                             </Suspense>
                         }
                     />
                 </Route>
                 <Route element={<BlankLayout />}>
                     <Route
-                        path="/forgot-password"
+                        path="/quen-mat-khau"
                         element={
                             <Suspense fallback={<CircularProgress />}>
                                 <ForgotPassword title="Quên mật khẩu" />
@@ -72,7 +72,7 @@ export default function App() {
                 </Route>
                 <Route element={<BasicLayout />}>
                     <Route
-                        path="/edit-info"
+                        path="/chinh-sua-thong-tin"
                         element={
                             <Suspense fallback={<CircularProgress />}>
                                 <EditInformation title="Chỉnh sửa thông tin" />
@@ -82,7 +82,7 @@ export default function App() {
                 </Route>
                 <Route element={<BasicLayout />}>
                     <Route
-                        path="/about"
+                        path="/ve-chung-toi"
                         element={
                             <Suspense fallback={<CircularProgress />}>
                                 <About title="Về chúng tôi" />
@@ -92,20 +92,20 @@ export default function App() {
                 </Route>
                 <Route element={<BasicLayout />}>
                     <Route
-                        path="/movie"
+                        path="/danh-sach-phim"
                         element={
                             <Suspense fallback={<CircularProgress />}>
-                                <Movie title="Movie" />
+                                <Movie title="Danh Sách Phim" />
                             </Suspense>
                         }
                     />
                 </Route>
                 <Route element={<BasicLayout />}>
                     <Route
-                        path="/movie-detail"
+                        path="/chi-tiet-phim"
                         element={
                             <Suspense fallback={<CircularProgress />}>
-                                <MovieDetail title="Movie Detail" />
+                                <MovieDetail title="Chi Tiết Phim" />
                             </Suspense>
                         }
                     />

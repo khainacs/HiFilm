@@ -70,7 +70,7 @@ const FormLogin = () => {
                         <span>Remember Me</span>
                     </label>
                     <a href="#" className="text-purple-200 hover:text-blue-700 hover:underline hover:underline-offset-4">
-                        Forgot Password
+                        Quên Mật Khẩu
                     </a>
                 </div>
                 {/* button */}

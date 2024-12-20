@@ -7,7 +7,7 @@ export default function MovieCard({movie}){
                 <img
                 src={movie.image} 
                 alt={movie.title}
-                className="w-full h-auto relative z-0 rounded-lg transition-all duration-300 hover:scale-110"
+                className="w-full h-auto relative z-0 rounded-lg transition-all duration-300 hover:scale-125"
                 />
                 <div className="absolute top-2 bg-blue-600 text-white px-2 rounded-r-lg text-xs ">
                 {movie.episode}

@@ -33,19 +33,19 @@ const DropdownMenu = ({ items, title }) => {
                 <FontAwesomeIcon 
                     icon={faAngleDown} 
                     className="w-4 h-4 ml-1 transform rotate-180 transition-transform duration-300 ease-in-out
-                             group-hover:rotate-0"
+                             group-hover:rotate-0 "
                 />
             </button>
-            <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-Gray-Black-500 opacity-0 invisible 
+            <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-slate-500 opacity-0 invisible 
                           group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                <div className="rounded-md ring-1 ring-black ring-opacity-5 bg-slate-600">
+                <div className="rounded-md ring-1 ring-black ring-opacity-5">
                     <div className="py-1">
                         {items.map((item, index) => (
                             <a
                                 key={index}
                                 href={item.path}
-                                className="block px-4 py-2 text-sm text-white 
-                                          transition-colors duration-150 hover:text-yellow-500"
+                                className="block px-4 py-2 text-sm text-white hover:bg-yellow-500
+                                         hover:text-white transition-colors duration-150"
                             >
                                 {item.name}
                             </a>
@@ -86,7 +86,7 @@ export default function Navbar() {
                     </button>
                 </div>
                 {/* Mid (Nav Links) */}
-                <div className="hidden md:flex space-x-12 text-white items-center  mx-auto">
+                <div className="hidden md:flex space-x-12 text-white items-center mx-auto">
                     {/*  (Logo) */}
                     <div className="flex justify-center items-center">
                         <img src={Logo} alt="Logo" className="h-12 rounded-full overflow-hidden" />
@@ -120,7 +120,7 @@ export default function Navbar() {
                             <input 
                             type="search" 
                             id="default-search" 
-                            className="block w-full p-2  pl-12 text-sm text-gray-900 border border-gray-300 rounded-lg 
+                            className="block w-full p-1  pl-12 text-sm text-gray-900 border border-gray-300 rounded-lg 
                                         bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent 
                                         transition-all duration-300 ease-in-out
                                         dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
@@ -135,7 +135,8 @@ export default function Navbar() {
                     </div>
                     <div className="relative">
                     
-                        <a href="/login" className=" hover:bg-slate-600 text-white font-bold text-xs py-2 px-4 rounded-xl hover:border-Soft-Purple-500">
+                        <a href="/login" className="hover:bg-slate-500 
+                                            text-white font-bold text-xs py-2 px-4 rounded-xl">
                             Đăng Nhập
                         </a>
                     </div>  

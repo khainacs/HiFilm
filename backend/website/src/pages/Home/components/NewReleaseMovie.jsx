@@ -39,7 +39,7 @@ import LineUnder from "../components/LineUnder";
 const MovieCard = ({ src, title, genre, rating, subtitle }) => {
   const renderStars = (rating) => {
     if (rating === 0) {
-      return <span className="text-white text-base font-mono">Upcoming Soon</span>; 
+      return <span className="text-white text-base font-mono">Sắp ra mắt</span>; 
     }
 
     const stars = [];
@@ -68,7 +68,7 @@ const MovieCard = ({ src, title, genre, rating, subtitle }) => {
   return (
     <div className="w-full lg:w-52 h-auto sm:h-[450px] bg-gray-900 rounded-lg overflow-hidden shadow-lg border-4 sm:border-8 border-transparent flex flex-col">
       <div className="relative flex-grow">
-        <img src={src} alt="Movie Poster" className="w-full h-full object-cover" />
+        <img src={src} alt="Movie Poster" className="w-full h-full object-cover hover:scale-110" />
       </div>
       <div className="p-2 flex flex-col justify-between">
         <div>
@@ -189,31 +189,31 @@ const NewReleaseMovie = () => {
                 <Button 
                   onClick={() => handleCategoryChange('latest')} 
                   isActive={activeCategory === 'latest'}>
-                  Latest
+                  Mới Nhất
                 </Button>
                 <Button   
                   onClick={() => handleCategoryChange('popular')} 
                   isActive={activeCategory === 'popular'}
                 >
-                  Popular
+                  Phổ Biến
                 </Button>
                 <Button 
                   onClick={() => handleCategoryChange('upcoming')} 
                   isActive={activeCategory === 'upcoming'}
                 >
-                  Upcoming
+                  Sắp ra mắt
                 </Button>
               </div>
               <div className="flex items-center mt-4 sm:mt-0 border-2 rounded-full border-gray-600 relative">
                 <button
-                  className="h-8 px-4 text-white bg-gray-800 rounded-l-full hover:text-Bright-Pink-500"
+                  className="h-8 px-4 text-white bg-gray-800 rounded-l-full hover:bg-blue-500"
                   onClick={() => sliderRef.current.slickPrev()}
                 >
                   <FontAwesomeIcon icon={faCaretLeft} />
                 </button>
                 <hr className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-2 h-5 border-[1px] border-gray-600 z-10" />
                 <button
-                  className="h-8 px-4 text-white bg-gray-800 rounded-r-full hover:text-Bright-Pink-500"
+                  className="h-8 px-4 text-white bg-gray-800 rounded-r-full hover:bg-blue-500"
                   onClick={() => sliderRef.current.slickNext()}
                 >
                   <FontAwesomeIcon icon={faCaretRight} />

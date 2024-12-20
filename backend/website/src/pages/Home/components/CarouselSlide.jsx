@@ -91,12 +91,12 @@ const CarouselSlide = () => {
                 </button>
 
                 {/* Thumbnail Preview */}
-                <div className="absolute bottom-2 md:bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 md:space-x-4 max-h-40 overflow-y-auto px-4 min-h-28">
+                <div className="absolute bottom-2 md:bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 md:space-x-4 max-h-40 overflow-y-auto px-4 min-h-28 ">
                     {images.map((image, index) => (
                         <button
                             key={index}
                             onClick={() => handleThumbnailClick(index)}
-                            className={`flex-shrink-0 w-16 h-10 md:w-32 md:h-20 rounded-lg overflow-hidden transition-all duration-300 ${
+                            className={`hover:scale-110 flex-shrink-0 w-16 h-10 md:w-32 md:h-20 rounded-lg overflow-hidden transition-all duration-300 ${
                                 index === currentSlide ? 'ring-2 ring-white scale-110' : 'opacity-70 hover:opacity-100'
                             }`}
                         >

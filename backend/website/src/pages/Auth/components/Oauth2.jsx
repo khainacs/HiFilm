@@ -6,7 +6,7 @@ export default function Oauth2() {
         <div className="mt-10">
             <div className="relative">
                 <div className="relative flex justify-center items-center text-sm font-medium leading-6 before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
-                    <span className="bg-transparent px-6 text-white">Or login with</span>
+                    <span className="bg-transparent px-6 text-white">Hoặc đăng nhập với</span>
                 </div>
             </div>
 
