@@ -98,9 +98,9 @@ const Button = ({ children, onClick, isActive }) => (
   <button 
   type="button" 
   onClick={onClick} 
-  className={`h-10 px-4 sm:px-6 font-semibold text-xs text-white rounded-full border-gray-700 border-4 shadow-lg
-              ${isActive ? 'bg-Bright-Pink-500 border-Bright-Pink-500' : 'bg-gray-800'} 
-              hover:bg-Bright-Pink-500 transition-colors`}
+  className={`h-8 px-8 font-nunito font-bold text-xs text-white rounded-full 
+              ${isActive ? 'bg-button-500 text-slate-500' : ''} 
+              hover:bg-title-800 transition-colors`}
 >
   {children}
 </button>
@@ -178,18 +178,17 @@ const NewReleaseMovie = () => {
 
 
     return (
-      <div className="min-h-screen w-full bg-Dark-Blue-900 flex justify-center items-center p-4 sm:p-6 md:p-8">
+      <div className="min-h-screen w-full bg-slate-800 flex justify-center items-center p-4 sm:p-6 md:p-8">
         <div className="w-full max-w-7xl flex flex-col">
           <div className="w-full flex flex-col sm:flex-row justify-between items-center mb-6 space-y-4 sm:space-y-0">
-            <div className="w-full sm:w-auto text-center sm:text-left">
+            <div className="w-full sm:w-auto text-center font-bold font-nunito">
               <LineUnder>New Release Movies</LineUnder>
             </div>
             <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-2 w-full sm:w-auto">
               <div className="flex flex-wrap justify-center sm:justify-start gap-2 w-full sm:w-auto mb-4 sm:mb-0">
                 <Button 
                   onClick={() => handleCategoryChange('latest')} 
-                  isActive={activeCategory === 'latest'}
-                >
+                  isActive={activeCategory === 'latest'}>
                   Latest
                 </Button>
                 <Button   

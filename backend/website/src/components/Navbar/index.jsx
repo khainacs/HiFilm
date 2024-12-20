@@ -28,7 +28,7 @@ const countries = [
 const DropdownMenu = ({ items, title }) => {
     return (
         <div className="group relative inline-block">
-            <button className="text-white hover:text-Soft-Purple-500 flex items-center space-x-1">
+            <button className="text-white hover:text-yellow-500 flex items-center space-x-1">
                 <span>{title}</span>
                 <FontAwesomeIcon 
                     icon={faAngleDown} 
@@ -38,14 +38,14 @@ const DropdownMenu = ({ items, title }) => {
             </button>
             <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-Gray-Black-500 opacity-0 invisible 
                           group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                <div className="rounded-md ring-1 ring-black ring-opacity-5">
+                <div className="rounded-md ring-1 ring-black ring-opacity-5 bg-slate-600">
                     <div className="py-1">
                         {items.map((item, index) => (
                             <a
                                 key={index}
                                 href={item.path}
-                                className="block px-4 py-2 text-sm text-white hover:bg-Soft-Purple-500 
-                                         hover:text-white transition-colors duration-150"
+                                className="block px-4 py-2 text-sm text-white 
+                                          transition-colors duration-150 hover:text-yellow-500"
                             >
                                 {item.name}
                             </a>
@@ -78,7 +78,7 @@ export default function Navbar() {
     
     return (
         <nav id="header" className="fixed top-0 z-30 w-full bg-transparent ">
-            <div className="h-[60px] bg-Gray-Black-500 shadow-lg flex items-center justify-between">
+            <div className="h-[60px] bg-blue-800 shadow-lg flex items-center justify-between">
                 {/* Hamburger Menu for Small Screens */}
                 <div className="flex items-center md:hidden">
                     <button onClick={toggleMenu} className="text-white focus:outline-none">
@@ -92,21 +92,21 @@ export default function Navbar() {
                         <img src={Logo} alt="Logo" className="h-12 rounded-full overflow-hidden" />
                     </div>
 
-                    <a href="/" className="text-Light-Cream-500 hover:text-Soft-Purple-400">
-                        Home
+                    <a href="/" className="text-Light-Cream-500 hover:text-yellow-500">
+                        Trang Chủ
                     </a>
                     <DropdownMenu title="Thể Loại" items={categories} >
                         <FontAwesomeIcon className="text-white" icon={faAngleDown} />
                     </DropdownMenu>
                         
                     <DropdownMenu title="Quốc Gia" items={countries} />                
-                    <a href="/menu" className=" hover:text-Soft-Purple-500">
+                    <a href="/menu" className=" hover:text-yellow-500">
                         Phim mới
                     </a>
-                    <a href="/contact" className=" hover:text-Soft-Purple-500">
+                    <a href="/contact" className=" hover:text-yellow-500">
                         Phim bộ
                     </a>
-                    <a href="/support" className=" hover:text-Soft-Purple-500">
+                    <a href="/support" className=" hover:text-yellow-500">
                         Blog
                     </a>
                     <div className="max-w-4xl mx-auto pb-2 pt-2">   
@@ -135,20 +135,19 @@ export default function Navbar() {
                     </div>
                     <div className="relative">
                     
-                        <a href="/login" className="border-2 border-Bright-Pink-300 border-solid hover:bg-Soft-Purple-500
-                                            text-white font-bold text-xs py-1 px-3 rounded-xl hover:border-Soft-Purple-500">
+                        <a href="/login" className=" hover:bg-slate-600 text-white font-bold text-xs py-2 px-4 rounded-xl hover:border-Soft-Purple-500">
                             Đăng Nhập
                         </a>
                     </div>  
                     {/* Mobile Menu */}
                     <div className={`md:hidden fixed top-0 left-0 w-full h-full bg-[#252631] transition-transform transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} z-20`}>
                         <div className="flex flex-col items-center justify-center h-full space-y-6">
-                            <a href="/" className="text-white text-lg hover:text-Soft-Purple-500" onClick={toggleMenu}>Home</a>
-                            <a href="/reviews" className="text-white text-lg hover:text-Soft-Purple-500" onClick={toggleMenu}>Movies</a>
-                            <a href="/about" className="text-white text-lg hover:text-Soft-Purple-500" onClick={toggleMenu}>About</a>
-                            <a href="/menu" className="text-white text-lg hover:text-Soft-Purple-500" onClick={toggleMenu}>Menu</a>
-                            <a href="/contact" className="text-white text-lg hover:text-Soft-Purple-500" onClick={toggleMenu}>Contact</a>
-                            <a href="/support" className="text-white text-lg hover:text-Soft-Purple-500" onClick={toggleMenu}>Policy</a>
+                            <a href="/" className="text-white text-lg hover:text-yellow-500" onClick={toggleMenu}>Home</a>
+                            <a href="/reviews" className="text-white text-lg hover:text-yellow-500" onClick={toggleMenu}>Movies</a>
+                            <a href="/about" className="text-white text-lg hover:text-yellow-500" onClick={toggleMenu}>About</a>
+                            <a href="/menu" className="text-white text-lg hover:text-yellow-500" onClick={toggleMenu}>Menu</a>
+                            <a href="/contact" className="text-white text-lg hover:text-yellow-500" onClick={toggleMenu}>Contact</a>
+                            <a href="/support" className="text-white text-lg hover:text-yellow-500" onClick={toggleMenu}>Policy</a>
                             <button className="border-2 border-Bright-Pink-300 border-solid hover:bg-Bright-Pink-300 text-white font-bold text-xs py-2 px-4 rounded-xl" onClick={toggleMenu}>
                                 Đăng Nhập
                             </button>
