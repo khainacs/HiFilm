@@ -6,7 +6,7 @@ import { faGoogle, faFacebookF } from "@fortawesome/free-brands-svg-icons";
 import Login from "../../../assets/img/Login-Register/home_cinema.svg";
 import Logo from "../../../assets/img/Logo/Logo.png";
 import {BiLogoFacebook} from "react-icons/bi";
-import { BiLogoGoogle } from "react-icons/bi";
+import { BiLogoGoogle } from "react-icons/bi";  
 const FormLogin = () => {
     const [showPassword, setShowPassword] = useState(false);
 

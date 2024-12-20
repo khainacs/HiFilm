@@ -78,13 +78,13 @@ const CarouselSlide = () => {
 
                 {/* Controls */}
                 <button
-                    className="absolute top-1/2 left-2 md:left-4 transform -translate-y-1/2 bg-white/20 p-1 md:p-2 rounded-full"
+                    className="absolute top-1/2 left-2 md:left-4 transform -translate-y-1/2 hover:bg-slate-400 bg-white/20 p-1 md:p-2 rounded-full"
                     onClick={prevSlide}
                 >
                     <ChevronLeft className="text-white w-4 h-4 md:w-6 md:h-6" />
                 </button>
                 <button
-                    className="absolute top-1/2 right-2 md:right-4 transform -translate-y-1/2 bg-white/20 p-1 md:p-2 rounded-full"
+                    className="absolute top-1/2 right-2 md:right-4 transform -translate-y-1/2 hover:bg-slate-600 bg-white/20 p-1 md:p-2 rounded-full"
                     onClick={nextSlide}
                 >
                     <ChevronRight className="text-white w-4 h-4 md:w-6 md:h-6" />

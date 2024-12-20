@@ -91,7 +91,7 @@ export default function Filter(){
     
             {/* Row 3 - Search Button */}
             <div className='w-full flex justify-center mb-2'>
-              <button className='w-1/5 rounded-md border py-2 text-[8px] hover:bg-white hover:text-Gray-Black-800 transition-colors'>
+              <button className='w-1/5 rounded-md border py-2 text-[10px] hover:bg-slate-500 transition-colors bg-navy-blue-600'>
                 Tìm Kiếm
               </button>
             </div>

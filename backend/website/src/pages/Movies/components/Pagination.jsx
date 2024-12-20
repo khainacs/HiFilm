@@ -25,7 +25,7 @@ export default function Pagination({
                         setPreviousPage();
                     }}
                     className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border
-                         border-gray-300 rounded-md hover:bg-gray-50"
+                         border-gray-300 rounded-md "
                 >
                     Previous
                 </a>
@@ -36,7 +36,7 @@ export default function Pagination({
                         setNextPage();
                     }}
                     className="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 
-                        rounded-md hover:bg-gray-50"
+                        rounded-md hover:bg-gray-50 hover:text-navy-red-500"
                 >
                     Next
                 </a>
@@ -51,7 +51,7 @@ export default function Pagination({
                             }}
                             disabled={!previousEnabled}
                             className="relative inline-flex items-center px-2 py-2 border-0 rounded-full text-Coral-Pink-500 outline-0 focus:z-20 
-                                focus:outline-offset-0 bg-Coral-Pink-100 hover:bg-Deep-Tea-300 hover:text-white"
+                                focus:outline-offset-0 bg-Coral-Pink-100 hover:bg-Deep-Tea-300 hover:text-navy-red-500"
                         >
                             <span className="sr-only">Previous</span>
                             <svg
@@ -72,8 +72,8 @@ export default function Pagination({
                                 key={page}
                                 onClick={() => handlePageChange(page)} // Truyền số trang đúng
                                 className={`relative inline-flex items-center px-4 py-1 text-sm font-semibold text-white cursor-default rounded-lg hover:bg-Muted-Purple-700
-                                     hover:text-white bg-Muted-Purple-500 focus:z-20 focus:outline-offset-0 hover:ring-0 ${
-                                    currentPage === page ? "bg-Soft-Purple-700 hover:bg-Soft-Purple-300" : ""
+                                     hover:bg-navy-red-500 bg-Muted-Purple-500 focus:z-20 focus:outline-offset-0 hover:ring-0 ${
+                                    currentPage === page ? "bg-navy-red-600 hover:bg-Soft-Purple-300" : ""
                                 }`}
                             >
                                 {page + 1} {/* Hiển thị số trang từ 1 */}
@@ -86,7 +86,7 @@ export default function Pagination({
                                 setNextPage();
                             }}
                             className="relative inline-flex items-center px-2 py-2 ml-5 border-0 rounded-full text-Coral-Pink-500 outline-0 focus:z-20
-                                 focus:outline-offset-0 bg-Coral-Pink-100 hover:bg-Deep-Tea-300 hover:text-white"
+                                 focus:outline-offset-0 bg-Coral-Pink-100 hover:bg-Deep-Tea-300 hover:text-navy-red-500"
                         >
                             <span className="sr-only">Next</span>
                             <svg
