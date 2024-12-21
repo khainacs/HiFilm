@@ -18,16 +18,16 @@ export const FormForgotPassword = () => {
             </div>
 
             {/* Phần nhập email */}
-            <div className="flex flex-col justify-center items-center w-full md:w-1/2 space-y-6 md:space-y-8">
+            <div className="flex flex-col justify-center items-center w-full md:w-1/2 space-y-6 md:space-y-8 border p-6 rounded-lg bg-slate-700">
                 {/* Tiêu đề */}
-                <h2 className="text-Vibrant-Purple-400 text-2xl md:text-4xl font-bold font-poppins mb-2 text-center">
-                    Forgot password?
+                <h2 className="text-white text-2xl md:text-4xl font-nunito font-bold font-poppins mb-2 text-center">
+                    Quên Mật Khẩu? 
                 </h2>
 
                 {/* Hình ảnh biểu tượng */}
                 <img
-                    className="w-[120px] h-[120px] md:w-[173px] md:h-[150px] mx-auto -mb-4 md:-mb-8"
-                    src="./src/assets/img/Forgotpassword/Forgot Password.png"
+                    className="w-[120px] h-[160px] md:w-[173px] md:h-[150px] mx-auto -mb-4 md:-mb-8"
+                    src="./src/assets/img/Forgotpassword/pngegg.png"
                     alt="Icon"
                 />
                 {/* Phần nhập email */}
@@ -62,9 +62,9 @@ export const FormForgotPassword = () => {
                 </div>
                 {/* Nút gửi email */}
                 <div className="w-full max-w-md">
-                    <button className="group relative min-h-[40px] rounded-xl w-full overflow-hidden border border-Dark-Blue-400 bg-white text-Dark-Blue-400 shadow transition-all hover:text-white hover:bg-Vibrant-Purple-600">
+                    <button className="group relative min-h-[40px] rounded-xl w-full overflow-hidden bg-[#00a9ff] shadow transition-all text-white font-nunito font-bold">
                         <span className="absolute inset-0 flex items-center justify-center z-10">
-                            Send Mail
+                            Nhận Mail 
                         </span>
                     </button>
                 </div>

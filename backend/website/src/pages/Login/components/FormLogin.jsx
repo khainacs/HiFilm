@@ -76,7 +76,7 @@ const FormLogin = () => {
                 {/* button */}
                 <div className="text-center md:text-left flex flex-col items-center">
                     <button type="submit" className="mt-4 bg-blue-600 hover:bg-wine-red-800 px-8 py-2 text-white rounded text-xs tracking-wider">
-                        Login
+                        Đăng Nhập
                     </button>
                 </div>
                 {/* navigate register */}

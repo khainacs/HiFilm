@@ -3,10 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 
 const FormEditInformation = () => {
-    const [email, setEmail] = useState('current@example.com');
-    const [username, setUsername] = useState('current_username');
+    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [birthday, setBirthday] = useState('');
+    const [password, setPassowrd] = useState('');
+    const [repassword, setRepassword] = useState('');
     const [profileImage, setProfileImage] = useState('./src/assets/img/Forgotpassword/Figure → signin-image.jpg.png');
 
     const handleFileChange = (event) => {
@@ -31,13 +33,13 @@ const FormEditInformation = () => {
             <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <div className="mb-6 flex justify-center">
                     <div className="relative">
-                        <img
+                        {/* <img
                             id="imagePreview"
                             src={profileImage}
                             alt="Current Profile"
                             className="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg"
-                        />
-                        <label
+                        /> */}
+                        {/* <label
                             htmlFor="profileImage"
                             className="absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-full cursor-pointer"
                         >
@@ -50,12 +52,12 @@ const FormEditInformation = () => {
                                 className="hidden"
                                 onChange={handleFileChange}
                             />
-                        </label>
+                        </label> */}
                     </div>
                 </div>
 
                 <div className="mb-4">
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                    <label htmlFor="email" className="block text-sm font-nunito font-bold text-gray-300 mb-2">Email</label>
                     <input
                         type="email"
                         id="email"
@@ -104,23 +106,45 @@ const FormEditInformation = () => {
                         className="block w-full px-4 py-2 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 bg-gray-700 text-white"
                     />
                 </div>
-                <div className="flex justify-end">
+                <div className="mb-4">
+                    <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-2">Mật Khẩu</label>
+                    <input
+                        type="password"
+                        id="passowrd"
+                        name="password"
+                        value={password}
+                        onChange={(e) => setPassowrd(e.target.value)}
+                        className="block w-full px-4 py-2 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 bg-gray-700 text-white"
+                        required
+                    />
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-2">Nhập lại mật khẩu</label>
+                    <input
+                        type="password"
+                        id="repassword"
+                        name="repassword"
+                        value={repassword}
+                        onChange={(e) => setRepassword(e.target.value)}
+                        className="block w-full px-4 py-2 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 bg-gray-700 text-white"
+                        required
+                    />
+                </div>
+                <div className="flex justify-end gap-4">
                     <button
                         type="submit"
-                        className="bg-indigo-600 text-white py-2 px-6 rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300"
+                        className="bg-indigo-600 hover:bg-indigo-400 text-white py-2 px-6 rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300"
                     >
                         Lưu thay đổi
                     </button>
-                </div>
-
-                <div className="flex justify-center mt-4">
                     <button
                         type="button"
-                        className="bg-red-600 text-white py-2 px-6 rounded-lg shadow-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-300"
+                        className="bg-red-600 hover:bg-red-400 text-white py-2 px-6 rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-300"
                         onClick={() => alert('Đổi mật khẩu')}>
                         Đổi mật khẩu
                     </button>
                 </div>
+                
             </form>
         </div>
     );
